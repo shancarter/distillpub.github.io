@@ -1,22 +1,38 @@
 <!doctype html>
 <head>
+  <title>Attention and Augmented Recurrent Neural Networks — Distill</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1024">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
-  <meta name="citation_title" content="Understanding Augmented Recurrent Neural Networks">
+  <meta name="keywords" content="neural networks,machine learning">
+
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Attention and Augmented Recurrent Neural Networks"/>
+  <meta property="og:description" content="Recurrent neural networks are one of the staples of deep learning, allowing neural networks to work with sequences of data like text, audio and video">
+  <meta property="og:url" content="http:&#x2F;&#x2F;distill.pub&#x2F;2016&#x2F;augmented-rnns&#x2F;"/>
+  <meta property="og:image" content="http:&#x2F;&#x2F;distill.pub&#x2F;2016&#x2F;augmented-rnns&#x2F;/thumbnail.png"/>
+
+  <meta name="twitter:card" value="summary_large_image">
+  <meta name="twitter:title" content="Attention and Augmented Recurrent Neural Networks">
+  <meta name="twitter:description" content="Recurrent neural networks are one of the staples of deep learning, allowing neural networks to work with sequences of data like text, audio and video">
+  <meta name="twitter:url" content="http:&#x2F;&#x2F;distill.pub&#x2F;2016&#x2F;augmented-rnns&#x2F;">
+  <meta name="twitter:image" content="http:&#x2F;&#x2F;distill.pub&#x2F;2016&#x2F;augmented-rnns&#x2F;/thumbnail.png">
+  <meta name="twitter:image:width" content="560">
+  <meta name="twitter:image:height" content="295">
+
+  <meta name="author" content="Olah &amp; Carter">
+
+  <meta name="citation_title" content="Attention and Augmented Recurrent Neural Networks">
   <meta name="citation_author" content="Olah, Chris">
   <meta name="citation_author" content="Carter, Shan">
-  <meta name="citation_publication_date" content="">
-  <!--2016/08/30-->
+  <meta name="citation_publication_date" content="2016/09/08">
   <meta name="citation_journal_title" content="Distill">
 
-  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Open+Sans:300,400,400i,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|PT+Serif:500|Open+Sans:300,400,400i,600,700" rel="stylesheet">
 </head>
 
 <body>
-
 <style>
   .header {
     font-family: "Open Sans", sans;
@@ -66,86 +82,36 @@
     <a href="" class="nav">Contribute</a>
     <a href="" class="nav">About</a>
   </div>
-</div>
-  <style>
-
-
+</div>  <style>
   </style>
   <div class="page post">
 <p><link rel="stylesheet" type="text/css" href="assets/common.css"></p>
-<script src="assets/d3.min.js"></script>
-
-<h1>Understanding Augmented Recurrent Neural Networks</h1>
-
-<p><div class="byline">
+<p><script src="assets/d3.min.js"></script></p>
+<p><h1>Attention and Augmented Recurrent Neural Networks</h1>
+<div class="byline">
   <div class="authors">
     <div class="author">
-      <div class="name">Chris Olah</div>
-      <div class="affiliation">Google Brain</div>
+      <a class="name" href="http:&#x2F;&#x2F;colah.github.io">Chris Olah</a>
+      <a class="affiliation" href="http:&#x2F;&#x2F;g.co&#x2F;brain">Google Brain</a>
     </div>
     <div class="author">
-      <div class="name">Shan Carter</div>
-      <div class="affiliation">Google Brain</div>
+      <a class="name" href="http:&#x2F;&#x2F;shancarter.com">Shan Carter</a>
+      <a class="affiliation" href="http:&#x2F;&#x2F;g.co&#x2F;brain">Google Brain</a>
     </div>
   </div>
   <div class="date">
-    <div class="month">Jan. 2</div>
+    <div class="month">Sept. 8</div>
     <div class="year">2016</div>
   </div>
-  <div class="citation">
-    <div>Olah, Carter, 2016</div>
-    <div>BibTeX</div> <!-- This should be a link. -->
-  </div>
+  <a class="citation" href="#citation">
+    <div>Citation:</div>
+    <div>Olah &amp; Carter, 2016</div>
+  </a>
 </div>
-
-<!--
-@misc{olah2016augmented
-  author = {Olah, Chris and Carter, Shan},
-  title = {Augmented Recurrent Neural Networks},
-  year = {2016},
-  howpublished = {URL}
-}
---></p>
-<p><script type="text/javascript" async
-  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-});
-</script></p>
-<!--
-Some things we might want to think about adding somewhere:
-* Hyperlink author names and instituion
-* Select a canonical picture for the diagram, when displaying it?
-* List of article translations -- my LSTM article has at least 7 translations
-* Licensing Info (CC-BY?)
-* FAQ: https://docs.google.com/a/google.com/document/d/17d0iIq55dKX4Czo_r7iVZu3iG9WHfAO-namQCCr3FJc/edit?usp=sharing
-* Diagram source?
-* Source code for models?
--->
-<!-- Maybe rename "Attention and Augmented RNNs?" -->
-<style>
-p {text-align: justify; }
-.warn {
-  width: 628px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
-  background-color: #FDD;
-  border-radius: 10px;
-  border-style: solid;
-  border-color: #D77;
-  margin-bottom: 35px;
-}
-</style>
-
-<div class="warn"> Unpublished draft. Please do not publicize this page. </div>
-
+</p>
 <p>Recurrent neural networks are one of the staples of deep learning, allowing neural networks to work with sequences of data like text, audio and video. They can be used to boil a sequence down into a high-level understanding, to annotate sequences, and even to generate new sequences from scratch!</p>
 <!-- Comment on inputs/outputs in figure? -->
-<p><figure class="w-page">
-  <!--<figcaption style="top: 40px;">A basic recurrent neural network uses one cell several times to help understand sequences.</figcaption>-->
+<figure class="w-page">
 <svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="156" viewBox="0 0 984 156">
   <defs>
     <symbol id="rnn-bg" data-name="rnn-bg" viewBox="0 0 49.5 49.5">
@@ -195,25 +161,25 @@ p {text-align: justify; }
     </g>
     <use width="49.5" height="49.5" transform="translate(575.25 48.18)" xlink:href="#rnn-a"/>
   </g>
-  <text transform="translate(185.43 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">x0</text>
-  <text transform="translate(209.55 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">y0</text>
-  <text transform="translate(317.43 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">x1</text>
-  <text transform="translate(341.55 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">y1</text>
-  <text transform="translate(449.43 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">x2</text>
-  <text transform="translate(473.55 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">y2</text>
-  <text transform="translate(581.43 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">x3</text>
-  <text transform="translate(605.55 136.93)" opacity="0.6" font-size="12" font-family="Open Sans">y3</text>
+  <text transform="translate(184.88 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">x0</text>
+  <text transform="translate(209.01 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">y0</text>
+  <text transform="translate(316.88 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">x1</text>
+  <text transform="translate(341.01 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">y1</text>
+  <text transform="translate(448.88 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">x2</text>
+  <text transform="translate(473.01 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">y2</text>
+  <text transform="translate(580.88 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">x3</text>
+  <text transform="translate(605.01 136.93)" opacity="0.6" font-size="13" font-family="Open Sans">y3</text>
   <g opacity="0.6">
-    <text transform="translate(176.67 24.93)" font-size="12" font-family="Open Sans">One cell...</text>
+    <text transform="translate(174.39 24.93)" font-size="13" font-family="Open Sans">One cell...</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(283.58 24.93)" font-size="12" font-family="Open Sans">can be used over...</text>
+    <text transform="translate(279.21 24.93)" font-size="13" font-family="Open Sans">can be used over...</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(438.51 24.93)" font-size="12" font-family="Open Sans">and over...</text>
+    <text transform="translate(436.05 24.93)" font-size="13" font-family="Open Sans">and over...</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(583.24 24.93)" font-size="12" font-family="Open Sans">again.</text>
+    <text transform="translate(581.85 24.93)" font-size="13" font-family="Open Sans">again.</text>
   </g>
   <g>
     <g>
@@ -264,12 +230,6 @@ p {text-align: justify; }
 </svg>
 </figure>
 
-<script>
-(function() {
-  console.log("rnn_basic_rnn")
-
-})();
-</script></p>
 <p>The basic RNN design struggles with longer sequences, but a special variant – <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">“long short-term memory” networks</a> – can even work with these. Such models have been found to be very powerful, achieving remarkable results in many tasks including translation, voice recognition, and image captioning. As a result, recurrent neural networks have become very widespread in the last few years.</p>
 <p>As this has happened, we’ve seen a growing number of attempts to augment RNNs with new properties. Four directions stand out as particularly exciting:</p>
 <ul>
@@ -281,7 +241,7 @@ p {text-align: justify; }
 <p>Individually, these techniques are all potent extensions of RNNs, but the really striking thing is that they can be combined together, and seem to just be points in a broader space. Further, they all rely on the same underlying trick – something called attention – to work.</p>
 <p>Our guess is that these “augmented RNNs” will have an important role to play in extending deep learning’s capabilities over the coming years.</p>
 <hr>
-<h3 id="neural-turing-machines">Neural Turing Machines</h3>
+<h2 id="neural-turing-machines">Neural Turing Machines</h2>
 <p>Neural Turing Machines (<a href="https://arxiv.org/pdf/1410.5401.pdf">Graves, <em>et al.</em>, 2014</a>) combine a RNN with an external memory bank. Since vectors are the natural language of neural networks, the memory is an array of vectors:</p>
 <figure class="w-page">
   <!--
@@ -518,10 +478,10 @@ p {text-align: justify; }
     <use width="49.5" height="49.5" transform="translate(179.89 215.25)" xlink:href="#rnn-a"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(115 33)" font-size="12" font-family="Open Sans">Memory is an array of vectors</text>
+    <text transform="translate(115 33)" font-size="13" font-family="Open Sans">Memory is an array of vectors</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(114 118.28)" font-size="12" font-family="Open Sans">Network A <tspan x="0" y="18">writes and reads </tspan><tspan x="0" y="36">from this memory </tspan><tspan x="0" y="54">each step</tspan></text>
+    <text transform="translate(114 117.14)" font-size="13" font-family="Open Sans">Network A <tspan x="0" y="20">writes and reads </tspan><tspan x="0" y="40">from this memory </tspan><tspan x="0" y="60">each step</tspan></text>
   </g>
   <g>
     <line x1="228.89" y1="240" x2="362.21" y2="240" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -535,8 +495,12 @@ p {text-align: justify; }
     <line x1="612.89" y1="240" x2="746.21" y2="240" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     <path d="M751.64,240a27.2,27.2,0,0,0-7.69,4.28L745.5,240l-1.55-4.28A27.18,27.18,0,0,0,751.64,240Z" fill="#666"/>
   </g>
-  <text transform="translate(187.82 306)" font-size="12" fill="#666" font-family="Open Sans">x0</text>
-  <text transform="translate(211.94 306)" font-size="12" fill="#666" font-family="Open Sans">y0</text>
+  <g opacity="0.6">
+    <text transform="translate(187.27 306)" font-size="13" font-family="Open Sans">x0</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(211.4 306)" font-size="13" font-family="Open Sans">y0</text>
+  </g>
   <g>
     <line x1="193.39" y1="291.08" x2="193.39" y2="274.01" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     <path d="M193.39,268.58a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,193.39,268.58Z" fill="#666"/>
@@ -561,10 +525,18 @@ p {text-align: justify; }
     <line x1="600.22" y1="264.58" x2="600.22" y2="286.98" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     <path d="M600.22,292.41a27.2,27.2,0,0,0-4.28-7.69l4.28,1.55,4.28-1.55A27.18,27.18,0,0,0,600.22,292.41Z" fill="#666"/>
   </g>
-  <text transform="translate(375.48 306)" font-size="12" fill="#666" font-family="Open Sans">x1</text>
-  <text transform="translate(399.6 306)" font-size="12" fill="#666" font-family="Open Sans">y1</text>
-  <text transform="translate(568.32 306)" font-size="12" fill="#666" font-family="Open Sans">x2</text>
-  <text transform="translate(592.44 306)" font-size="12" fill="#666" font-family="Open Sans">y2</text>
+  <g opacity="0.6">
+    <text transform="translate(374.94 306)" font-size="13" font-family="Open Sans">x1</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(399.07 306)" font-size="13" font-family="Open Sans">y1</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(567.77 306)" font-size="13" font-family="Open Sans">x2</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(591.9 306)" font-size="13" font-family="Open Sans">y2</text>
+  </g>
   <g>
     <line x1="767.22" y1="292.41" x2="767.22" y2="274.01" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     <path d="M767.22,268.58a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,767.22,268.58Z" fill="#666"/>
@@ -573,8 +545,12 @@ p {text-align: justify; }
     <line x1="792.22" y1="264.58" x2="792.22" y2="286.98" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     <path d="M792.22,292.41a27.2,27.2,0,0,0-4.28-7.69l4.28,1.55,4.28-1.55A27.18,27.18,0,0,0,792.22,292.41Z" fill="#666"/>
   </g>
-  <text transform="translate(760.32 306)" font-size="12" fill="#666" font-family="Open Sans">x2</text>
-  <text transform="translate(784.44 306)" font-size="12" fill="#666" font-family="Open Sans">y2</text>
+  <g opacity="0.6">
+    <text transform="translate(759.77 306)" font-size="13" font-family="Open Sans">x2</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(783.9 306)" font-size="13" font-family="Open Sans">y2</text>
+  </g>
   <use width="36" height="36" transform="translate(114 47.96) scale(0.83)" xlink:href="#array-vector"/>
   <use id="array-vector-5" data-name="array-vector" width="36" height="36" transform="translate(144.04 49.22) scale(0.83)" xlink:href="#array-vector"/>
   <use width="36" height="36" transform="translate(174.08 49.22) scale(0.83)" xlink:href="#array-vector"/>
@@ -606,7 +582,7 @@ p {text-align: justify; }
 <p>But how does reading and writing work? The challenge is that we want to make them differentiable. In particular, we want to make them differentiable with respect to the location we read from or write to, so that we can learn where to read and write. This is tricky because memory addresses seem to be fundamentally discrete. NTMs take a very clever solution to this: every step, they read and write everywhere, just to different extents.</p>
 <p>As an example, let’s focus on reading. Instead of specifying a single location, the RNN gives “attention distribution” which describe how we spread out the amount we care about different memory positions. As such, the result of the read operation is a weighted sum.</p>
 <figure class="w-page" id="rnn-read">
-<svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="276" viewBox="0 0 984 276">
+<svg id="edges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="276" viewBox="0 0 984 276">
   <defs>
     <symbol id="array-7" data-name="array-7" viewBox="0 0 253.5 37.5">
       <rect x="0.75" y="0.75" width="252" height="36" rx="6" ry="6" fill="#fff" stroke="#8c8c8c" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -633,12 +609,23 @@ p {text-align: justify; }
       <rect width="36" height="36" fill="#0080f7" opacity="0"/>
       <rect x="4.42" y="4.42" width="27.17" height="27.17" rx="6" ry="6" fill="#3a5edd" opacity="0.8"/>
     </symbol>
+    <symbol id="pointer" data-name="pointer" viewBox="0 0 26.87 26.87">
+      <circle cx="13.43" cy="13.43" r="12.93" fill="none" stroke="#ffdc8c" stroke-miterlimit="10"/>
+      <circle cx="13.43" cy="13.43" r="10.38" fill="#ffb200"/>
+      <polygon points="11.32 19.26 11.32 17.43 10.72 17.43 10.71 16.14 10.1 16.21 10.1 15 9.54 14.99 9.46 13.78 8.88 13.78 8.89 13.16 8.28 13.16 8.28 11.34 10.11 11.34 10.11 11.94 10.71 11.94 10.71 6.46 11.33 6.45 11.33 5.86 12.54 5.86 12.54 6.45 13.16 6.47 13.16 8.89 14.37 8.89 14.39 9.49 16.21 9.51 16.21 10.12 17.43 10.12 17.43 10.79 18.04 10.73 18.05 11.39 18.65 11.33 18.65 15.61 18.04 15.52 17.98 17.43 17.43 17.43 17.43 19.26 11.32 19.26" fill="#fff" opacity="0.2"/>
+      <g>
+        <path d="M10.11,11.94c0-.09,0-0.19,0-0.28s0-.21,0-0.32H8.28v1.82H8.89V11.95h1.23v0.63h0.6v0.6h0.61V13.09q0-2.4,0-4.8,0-.92,0-1.85h1.21V5.85H11.33v0.6H10.71v5.47h-0.6Zm4.28-2.44a0.45,0.45,0,0,1,0-.07c0-.15,0-0.3,0-0.45s0,0,0-.08H13.16V6.47H12.55v5.47h0.61V9.51h1.24s0,0.06,0,.09q0,1.12,0,2.25s0,0.07,0,.1H15V10.12h1.23v2.43h0.6V10.71l0.57,0s0,0,0,.05,0,0.29,0,.44,0,0.07,0,.11H18a0,0,0,0,1,.06.06c0,0.24,0,.48,0,0.72q0,1.71,0,3.41s0,0,0,.08h-0.6s0,0,0,0q0,0.86,0,1.72s0,0,0,.06H16.81v1.21H11.94V17.42H11.33V16.21h-0.6a11.4,11.4,0,0,0,0,1.22h0.6v1.83c2,0,4.07,0,6.11,0,0-.1,0-0.19,0-0.28,0-.46,0-0.93,0-1.39a1.53,1.53,0,0,0,0-.16H18c0.05,0,.07,0,0.07-0.07,0-.45,0-0.89,0-1.34,0-.13,0-0.26,0-0.4l0.3,0h0.3V11.33H18v-0.6H17.43V10.11H16.21V9.51H14.39ZM10.1,15v1.21h0.52a0.07,0.07,0,0,0,.08-0.08c0-.32,0-0.65,0-1,0-.06,0-0.11,0-0.17H10.11V13.77H9.49V13.16H8.91a2.7,2.7,0,0,0,0,.62H9.47s0,0,0,.07,0,0.27,0,.41,0,0.45,0,.68a0,0,0,0,0,.05.06H10.1Z" fill="#fff"/>
+        <path d="M17.43,17.43s0,0,0-.06q0-.86,0-1.72s0,0,0,0H18s0-.06,0-0.08q0-1.71,0-3.41c0-.24,0-0.48,0-0.72A0,0,0,0,0,18,11.33H17.44s0-.07,0-0.11,0-.29,0-0.44,0-.05,0-0.05l-0.57,0v1.84h-0.6V10.12H15v1.82H14.38s0-.07,0-0.1q0-1.12,0-2.25s0-.06,0-0.09h1.81v0.6h1.22v0.62H18v0.6h0.61v4.28h-0.3l-0.3,0c0,0.14,0,.27,0,0.4,0,0.45,0,.89,0,1.34,0,0.05,0,.07-0.07.07H17.43Z" fill="#fff"/>
+        <path d="M17.43,17.43a1.53,1.53,0,0,1,0,.16c0,0.46,0,.93,0,1.39,0,0.09,0,.17,0,0.28-2,0-4.06,0-6.11,0V17.43h-0.6a11.4,11.4,0,0,1,0-1.22h0.6v1.21h0.61v1.22h4.88V17.43h0.62Z" fill="#fff"/>
+        <path d="M11.33,6.45q0,0.92,0,1.85,0,2.4,0,4.8v0.07H10.72v-0.6h-0.6V11.93h0.6V6.46h0.61Z" fill="#fff"/>
+        <path d="M14.39,9.49H13.16v2.43H12.55V6.47h0.61V8.89h1.21s0,0.06,0,.08,0,0.3,0,.45a0.44,0.44,0,0,0,0,.07h0Z" fill="#fff"/>
+        <path d="M10.1,15H9.54a0,0,0,0,1-.05-0.06c0-.23,0-0.45,0-0.68s0-.27,0-0.41,0,0,0-.07H8.88a2.7,2.7,0,0,1,0-.62H9.49v0.61h0.62V15h0.61c0,0.06,0,.12,0,0.17,0,0.32,0,.65,0,1a0.07,0.07,0,0,1-.08.08H10.1V15Z" fill="#fff"/>
+        <path d="M10.11,11.93H8.89v1.21H8.28V11.34h1.83c0,0.11,0,.21,0,0.32s0,0.19,0,.28h0Z" fill="#fff"/>
+        <path d="M11.33,6.45V5.85h1.21v0.6H11.33Z" fill="#fff"/>
+      </g>
+    </symbol>
   </defs>
   <title>rnn</title>
-  <g id="_Group_" data-name="&lt;Group&gt;" opacity="0.2">
-    <rect x="162" y="42" width="264" height="48" rx="10" ry="10" opacity="0.04"/>
-    <rect x="162" y="42" width="264" height="48" rx="10" ry="10" fill="#ff0"/>
-  </g>
   <g id="paths">
     <path id="edge0" d="M186,84v66.12c0.56,24,102,24.22,102,76.88" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5"/>
     <path id="edge1" d="M222,84v66.12c0.56,24,68,24.22,68,76.88" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -648,19 +635,17 @@ p {text-align: justify; }
     <path id="edge5" d="M366,84v66.12c-0.56,24-68,24.22-68,76.88" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5"/>
     <path id="edge6" d="M402,84v66.12c-0.56,24-102,24.22-102,76.88" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5"/>
   </g>
-  <rect x="200.95" y="18" width="37.55" height="18" fill="#ffffcd"/>
   <use id="array-7-3" data-name="array-7" width="253.5" height="37.5" transform="translate(167.75 47.75)" xlink:href="#array-7"/>
   <use id="array-7-6" data-name="array-7" width="253.5" height="37.5" transform="translate(167.75 106.75)" xlink:href="#array-7"/>
   <use id="array-1-3" data-name="array-1" width="37.5" height="37.5" transform="translate(275.75 226.75)" xlink:href="#array-1"/>
   <g opacity="0.6">
-    <text transform="translate(432 72)" font-size="12" font-family="Open Sans">attention</text>
-  </g>
-  <text transform="translate(168.42 29.28)" font-size="12" fill="#aaa" font-family="Open Sans" font-style="italic">Hover yellow objects to change values</text>
-  <g opacity="0.6">
-    <text transform="translate(432 132)" font-size="12" font-family="Open Sans">memory</text>
+    <text transform="translate(440 72)" font-size="13" font-family="Open Sans">attention</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(324 252)" font-size="12" font-family="Open Sans">read result</text>
+    <text transform="translate(440 132)" font-size="13" font-family="Open Sans">memory</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(324 249)" font-size="13" font-family="Open Sans">read result</text>
   </g>
   <use id="read-result" width="36" height="36" transform="translate(277 228)" xlink:href="#array-vector"/>
   <g id="attention">
@@ -681,23 +666,24 @@ p {text-align: justify; }
     <use width="36" height="36" transform="translate(348 108)" xlink:href="#array-vector"/>
     <use id="array-vector-17" data-name="array-vector" width="36" height="36" transform="translate(384 108)" xlink:href="#array-vector"/>
   </g>
+  <use id="pointer-3" data-name="pointer" width="26.87" height="26.87" transform="translate(129.84 52.06)" xlink:href="#pointer"/>
   <g opacity="0.6">
-    <text transform="translate(560 81.12)" font-size="12" font-family="Open Sans">Instead of reading from one location, we read <tspan x="0" y="18">from everywhere, just to different extents. The </tspan><tspan x="0" y="36">result is a weighted combination of memory.</tspan></text>
+    <text transform="translate(560 81.88)" font-size="13" font-family="Open Sans">Instead of reading from one location, we <tspan x="0" y="20">read from everywhere, just to different </tspan><tspan x="0" y="40">extents. The result is a weighted </tspan><tspan x="0" y="60">combination of memory.</tspan></text>
   </g>
-  <path d="M639.88,170a1.5,1.5,0,0,0,0-.17l0.11-.48a4.07,4.07,0,0,1,.22-0.67q0.13-.3.33-0.71a2.31,2.31,0,0,1,.43-0.65,4.86,4.86,0,0,1,.56-0.48,1,1,0,0,1,.72-0.2,2.27,2.27,0,0,1,1.11.26,2.61,2.61,0,0,1,.67.48,0.93,0.93,0,0,1,.24.43,0.23,0.23,0,0,0,.07.13,0.76,0.76,0,0,0,.17-0.15,3.19,3.19,0,0,1,2.41-1.13H647a1.69,1.69,0,0,1,1.56.89,2.06,2.06,0,0,1,.17.8,1.74,1.74,0,0,1-.28,1,1.35,1.35,0,0,1-.56.5,1.22,1.22,0,0,1-.54.09,1,1,0,0,1-.69-0.24,0.81,0.81,0,0,1-.26-0.63,1.41,1.41,0,0,1,1.21-1.39,1.66,1.66,0,0,0-.78-0.28,2.8,2.8,0,0,0-2.23,1.6,2.88,2.88,0,0,0-.33.72q-0.11.37-.74,2.88-0.74,3-.85,3.23a1,1,0,0,1-.93.59,0.74,0.74,0,0,1-.46-0.13,0.78,0.78,0,0,1-.24-0.26,0.32,0.32,0,0,1,0-.22q0-.28.87-3.73a37.67,37.67,0,0,0,.87-3.84q0-.85-0.56-0.85a0.93,0.93,0,0,0-.78.61,6.3,6.3,0,0,0-.52,1.32,6.18,6.18,0,0,1-.24.78,0.72,0.72,0,0,1-.35,0H640A0.36,0.36,0,0,1,639.88,170Z" fill="#666"/>
-  <path d="M675.65,170.53v0.24a0.54,0.54,0,0,1-.33.43H658.77l0.37,0.3a5.92,5.92,0,0,1,.63.59q0.3,0.33.71,0.8a4.41,4.41,0,0,1,.72,1.21q0.3,0.74.56,1.54a2.44,2.44,0,0,1,.11.54q0,0.24-.43.24h-0.22a0.17,0.17,0,0,1-.13-0.09,0.85,0.85,0,0,1-.11-0.19,2.1,2.1,0,0,1-.09-0.41,6.62,6.62,0,0,0-1.47-2.82,6.68,6.68,0,0,0-2.64-1.84,0.85,0.85,0,0,1-.39-0.24,0.25,0.25,0,0,1,.09-0.22,1.44,1.44,0,0,1,.3-0.15,6.66,6.66,0,0,0,1.84-1.08,6.43,6.43,0,0,0,1.24-1.32,7.45,7.45,0,0,0,.69-1.28,10.62,10.62,0,0,0,.37-1l0.06-.37,0.07-.17a0.23,0.23,0,0,1,.11-0.09,0.67,0.67,0,0,1,.28,0q0.43,0,.43.24a2.44,2.44,0,0,1-.11.54,9.12,9.12,0,0,1-.54,1.5,6.26,6.26,0,0,1-.69,1.17q-0.37.48-.67,0.8a6.46,6.46,0,0,1-.65.61l-0.43.37h16.55a0.54,0.54,0,0,1,.33.43v-0.24Z" fill="#666"/>
-  <path d="M684.19,155.65s4.41,0,13.11,0h13l1.26,2.93q1.28,3,1.37,3.16H712.1l-0.15-.3a7.32,7.32,0,0,0-1.21-1.69,9.09,9.09,0,0,0-2.41-1.67,11.86,11.86,0,0,0-3.06-.93,25.21,25.21,0,0,0-3.27-.37q-1.54-.06-4-0.09h-9.71l0.17,0.24q10,13.72,10.08,13.85a0.19,0.19,0,0,1,0,.13l-5.72,6.54-5.72,6.5s1.52,0,4.57,0h3.06q1.93,0,2.77,0,2.95,0,4.77-.11a27.83,27.83,0,0,0,3.62-.46,10,10,0,0,0,3.06-1.06,8.13,8.13,0,0,0,2.23-1.89,6.87,6.87,0,0,0,.89-1.56H713s-0.05.17-.15,0.46-0.28.76-.54,1.41-0.48,1.26-.67,1.82l-1.26,3.36-13,0q-13,0-13.11,0a0.18,0.18,0,0,1-.13-0.2,0.33,0.33,0,0,1,0-.13l11.55-13.22s-0.24-.34-0.71-1-1.24-1.68-2.28-3.12-2-2.73-2.82-3.86l-5.76-7.91,0-.33A0.7,0.7,0,0,1,684.19,155.65Z" fill="#666"/>
-  <path d="M696.21,195.3a1.68,1.68,0,0,1,.14-0.47,7.35,7.35,0,0,1,.37-0.78,2.53,2.53,0,0,1,.67-0.78,1.39,1.39,0,0,1,.92-0.34,1.45,1.45,0,0,1,1,.35,1.25,1.25,0,0,1,.41.95,3,3,0,0,1-.21.86q-0.21.6-.61,1.61t-0.64,1.73a2.51,2.51,0,0,0-.08.49q0,0.38.26,0.38a1,1,0,0,0,.29,0,1,1,0,0,0,.35-0.21,2.08,2.08,0,0,0,.41-0.54,4.45,4.45,0,0,0,.38-0.9,0.63,0.63,0,0,1,.08-0.21,0.56,0.56,0,0,1,.26,0q0.31,0,.31.15a1.68,1.68,0,0,1-.14.47,6,6,0,0,1-.38.78,2.56,2.56,0,0,1-.69.77,1.54,1.54,0,0,1-.95.34,1.44,1.44,0,0,1-.9-0.32,1.2,1.2,0,0,1-.43-1,1.54,1.54,0,0,1,.08-0.49q0.08-.23.66-1.75t0.67-1.85a2.54,2.54,0,0,0,.11-0.6q0-.37-0.26-0.37h0a1.07,1.07,0,0,0-.84.51,3.57,3.57,0,0,0-.58,1.29l0,0a0.12,0.12,0,0,0,0,0,0,0,0,0,1,0,0l0,0h-0.4A0.26,0.26,0,0,1,696.21,195.3Zm2.5-4.8a0.86,0.86,0,0,1,.29-0.64,1,1,0,0,1,.67-0.29,0.62,0.62,0,0,1,.46.18,0.68,0.68,0,0,1,.2.46,0.87,0.87,0,0,1-.31.64,1,1,0,0,1-.67.31,0.69,0.69,0,0,1-.43-0.15A0.64,0.64,0,0,1,698.71,190.5Z" fill="#666"/>
-  <path d="M725.4,169.08a2,2,0,0,0-.11-0.48,2.06,2.06,0,0,0-.5-0.76,1.39,1.39,0,0,0-1-.43,2.08,2.08,0,0,0-1.45.67,4.53,4.53,0,0,0-1.08,1.76,17.3,17.3,0,0,0-.89,3.55v0.24a1.16,1.16,0,0,1,0,.26,1.82,1.82,0,0,0,.39,1.34,1.4,1.4,0,0,0,.93.39,2.45,2.45,0,0,0,1.63-.72,3.64,3.64,0,0,0,1-1.11q0-.09.59-2.32T725.4,169.08Zm-6.89,3.71a6.4,6.4,0,0,1,1.65-4.16,4.85,4.85,0,0,1,3.71-2,2.46,2.46,0,0,1,2,1.06,1.08,1.08,0,0,1,1-.65,0.78,0.78,0,0,1,.5.17,0.53,0.53,0,0,1,.22.43q0,0.28-.8,3.47t-0.82,3.6a1.16,1.16,0,0,0,.15.71,0.64,0.64,0,0,0,.45.2,0.94,0.94,0,0,0,.43-0.2,4.91,4.91,0,0,0,.89-2.08,0.81,0.81,0,0,1,.22-0.45,0.63,0.63,0,0,1,.22,0h0.09q0.41,0,.41.19a3.44,3.44,0,0,1-.11.59,6.8,6.8,0,0,1-.43,1.17,3.69,3.69,0,0,1-.69,1.08,2.14,2.14,0,0,1-.69.45,2.31,2.31,0,0,1-.52,0,2.21,2.21,0,0,1-1.24-.32,1.66,1.66,0,0,1-.65-0.67l-0.13-.33s0,0-.09,0l-0.09.09a3.8,3.8,0,0,1-2.6,1.21,3,3,0,0,1-2.1-.87A3.65,3.65,0,0,1,718.51,172.78Z" fill="#666"/>
-  <path d="M729.58,175a1.68,1.68,0,0,1,.14-0.47,7.35,7.35,0,0,1,.37-0.78,2.53,2.53,0,0,1,.67-0.78,1.39,1.39,0,0,1,.92-0.34,1.45,1.45,0,0,1,1,.35,1.25,1.25,0,0,1,.41.95,3,3,0,0,1-.21.86q-0.21.6-.61,1.61t-0.64,1.73a2.51,2.51,0,0,0-.08.49q0,0.38.26,0.38a1,1,0,0,0,.29,0,1,1,0,0,0,.35-0.21,2.08,2.08,0,0,0,.41-0.54,4.45,4.45,0,0,0,.38-0.9,0.63,0.63,0,0,1,.08-0.21,0.56,0.56,0,0,1,.26,0q0.31,0,.31.15a1.68,1.68,0,0,1-.14.47,6,6,0,0,1-.38.78,2.56,2.56,0,0,1-.69.77,1.54,1.54,0,0,1-.95.34,1.44,1.44,0,0,1-.9-0.32,1.2,1.2,0,0,1-.43-1,1.54,1.54,0,0,1,.08-0.49q0.08-.23.66-1.75t0.67-1.85a2.54,2.54,0,0,0,.11-0.6q0-.37-0.26-0.37h0a1.07,1.07,0,0,0-.84.51,3.57,3.57,0,0,0-.58,1.29l0,0a0.12,0.12,0,0,0,0,0,0,0,0,0,1,0,0l0,0h-0.4A0.26,0.26,0,0,1,729.58,175Zm2.5-4.8a0.86,0.86,0,0,1,.29-0.64,1,1,0,0,1,.67-0.29,0.62,0.62,0,0,1,.46.18,0.68,0.68,0,0,1,.2.46,0.87,0.87,0,0,1-.31.64,1,1,0,0,1-.67.31,0.69,0.69,0,0,1-.43-0.15A0.64,0.64,0,0,1,732.07,170.24Z" fill="#666"/>
-  <path d="M743,162.56a2.36,2.36,0,0,0-1.24-.17,6.23,6.23,0,0,1-.67,0,0.18,0.18,0,0,1-.15-0.22s0-.09,0-0.24l0-.15a0.65,0.65,0,0,0,0-.11,0.38,0.38,0,0,1,0-.11q0-.09,0-0.06s0,0,.09,0a0.11,0.11,0,0,1,.11,0,0.3,0.3,0,0,0,.17,0l0.26,0h0.65l1,0h2a0.43,0.43,0,0,1,.35.11q0,0.09.8,6.11l0.78,6,0.5-.8q0.52-.78,1.39-2.17l1.91-3q3.79-6,3.84-6.09l0.07-.07,0.09-.06,0.13,0h2.95a5.27,5.27,0,0,0,.63,0q0.74,0,.74.24a1.78,1.78,0,0,1-.07.37q-0.07.26-.07,0.28a1.28,1.28,0,0,1-.8.13,9.64,9.64,0,0,0-1.11.07,0.62,0.62,0,0,0-.39.24q-0.06.11-1.56,6.13T754,174.91a0.17,0.17,0,0,0,0,.11l0.15,0.09a0.7,0.7,0,0,0,.37,0,3.47,3.47,0,0,1,.71,0h0.67a0.78,0.78,0,0,1,.13.24,1.43,1.43,0,0,1-.15.65,0.48,0.48,0,0,1-.35.11l-0.89,0-2,0h-2a6.4,6.4,0,0,0-.76,0q-0.37,0-.37-0.22s0-.13,0-0.3a0.68,0.68,0,0,1,.17-0.39,1.8,1.8,0,0,1,.5-0.07q0.59,0,1.3-.07a0.58,0.58,0,0,0,.41-0.26q0-.09.82-3.16t1.54-6.13l0.76-3.06-4.2,6.7q-4.25,6.76-4.35,6.87l-0.09,0a0.7,0.7,0,0,1-.35.07,0.39,0.39,0,0,1-.39-0.15q0-.09-0.89-6.72L744,162.67l-1.47,5.85q-1.45,5.76-1.45,6,0.13,0.72,1.56.72h0.22a0.42,0.42,0,0,1,.15.2,1,1,0,0,1-.07.39,0.68,0.68,0,0,1-.17.39l-0.24,0h-0.26l-0.74,0-1.39,0-1.34,0-0.8,0a1.17,1.17,0,0,1-.41,0,0.2,0.2,0,0,1-.09-0.2,2.3,2.3,0,0,1,.07-0.3,1.32,1.32,0,0,1,.11-0.33,0.51,0.51,0,0,1,.48-0.13,1.92,1.92,0,0,0,1.93-.87q0.09-.13,1.49-5.81T743,162.56Z" fill="#666"/>
-  <path d="M758,175a1.68,1.68,0,0,1,.14-0.47,7.37,7.37,0,0,1,.37-0.78,2.53,2.53,0,0,1,.67-0.78,1.39,1.39,0,0,1,.92-0.34,1.45,1.45,0,0,1,1,.35,1.25,1.25,0,0,1,.41.95,3,3,0,0,1-.21.86q-0.21.6-.61,1.61t-0.64,1.73a2.51,2.51,0,0,0-.08.49q0,0.38.26,0.38a1,1,0,0,0,.29,0,1,1,0,0,0,.35-0.21,2.08,2.08,0,0,0,.41-0.54,4.45,4.45,0,0,0,.38-0.9,0.63,0.63,0,0,1,.08-0.21,0.56,0.56,0,0,1,.26,0q0.31,0,.31.15a1.68,1.68,0,0,1-.14.47,6,6,0,0,1-.38.78,2.56,2.56,0,0,1-.69.77,1.54,1.54,0,0,1-.95.34,1.44,1.44,0,0,1-.9-0.32,1.2,1.2,0,0,1-.43-1,1.54,1.54,0,0,1,.08-0.49q0.08-.23.66-1.75t0.67-1.85a2.54,2.54,0,0,0,.11-0.6q0-.37-0.26-0.37h0a1.07,1.07,0,0,0-.84.51,3.57,3.57,0,0,0-.58,1.29l0,0a0.12,0.12,0,0,0,0,0,0,0,0,0,1,0,0l0,0h-0.4A0.26,0.26,0,0,1,758,175Zm2.5-4.8a0.86,0.86,0,0,1,.29-0.64,1,1,0,0,1,.67-0.29,0.62,0.62,0,0,1,.46.18,0.68,0.68,0,0,1,.2.46,0.87,0.87,0,0,1-.31.64,1,1,0,0,1-.67.31,0.69,0.69,0,0,1-.43-0.15A0.64,0.64,0,0,1,760.54,170.24Z" fill="#666"/>
+  <path d="M639.88,190a1.5,1.5,0,0,0,0-.17l0.11-.48a4.07,4.07,0,0,1,.22-0.67q0.13-.3.33-0.71a2.31,2.31,0,0,1,.43-0.65,4.86,4.86,0,0,1,.56-0.48,1,1,0,0,1,.72-0.2,2.27,2.27,0,0,1,1.11.26,2.61,2.61,0,0,1,.67.48,0.93,0.93,0,0,1,.24.43,0.23,0.23,0,0,0,.07.13,0.76,0.76,0,0,0,.17-0.15,3.19,3.19,0,0,1,2.41-1.13H647a1.69,1.69,0,0,1,1.56.89,2.06,2.06,0,0,1,.17.8,1.74,1.74,0,0,1-.28,1,1.35,1.35,0,0,1-.56.5,1.22,1.22,0,0,1-.54.09,1,1,0,0,1-.69-0.24,0.81,0.81,0,0,1-.26-0.63,1.41,1.41,0,0,1,1.21-1.39,1.66,1.66,0,0,0-.78-0.28,2.8,2.8,0,0,0-2.23,1.6,2.88,2.88,0,0,0-.33.72q-0.11.37-.74,2.88-0.74,3-.85,3.23a1,1,0,0,1-.93.59,0.74,0.74,0,0,1-.46-0.13,0.78,0.78,0,0,1-.24-0.26,0.32,0.32,0,0,1,0-.22q0-.28.87-3.73a37.67,37.67,0,0,0,.87-3.84q0-.85-0.56-0.85a0.93,0.93,0,0,0-.78.61,6.3,6.3,0,0,0-.52,1.32,6.18,6.18,0,0,1-.24.78,0.72,0.72,0,0,1-.35,0H640A0.36,0.36,0,0,1,639.88,190Z" fill="#666"/>
+  <path d="M675.65,190.53v0.24a0.54,0.54,0,0,1-.33.43H658.77l0.37,0.3a5.92,5.92,0,0,1,.63.59q0.3,0.33.71,0.8a4.41,4.41,0,0,1,.72,1.21q0.3,0.74.56,1.54a2.44,2.44,0,0,1,.11.54q0,0.24-.43.24h-0.22a0.17,0.17,0,0,1-.13-0.09,0.85,0.85,0,0,1-.11-0.19,2.1,2.1,0,0,1-.09-0.41,6.62,6.62,0,0,0-1.47-2.82,6.68,6.68,0,0,0-2.64-1.84,0.85,0.85,0,0,1-.39-0.24,0.25,0.25,0,0,1,.09-0.22,1.44,1.44,0,0,1,.3-0.15,6.66,6.66,0,0,0,1.84-1.08,6.43,6.43,0,0,0,1.24-1.32,7.45,7.45,0,0,0,.69-1.28,10.62,10.62,0,0,0,.37-1l0.06-.37,0.07-.17a0.23,0.23,0,0,1,.11-0.09,0.67,0.67,0,0,1,.28,0q0.43,0,.43.24a2.44,2.44,0,0,1-.11.54,9.12,9.12,0,0,1-.54,1.5,6.26,6.26,0,0,1-.69,1.17q-0.37.48-.67,0.8a6.46,6.46,0,0,1-.65.61l-0.43.37h16.55a0.54,0.54,0,0,1,.33.43v-0.24Z" fill="#666"/>
+  <path d="M684.19,175.65s4.41,0,13.11,0h13l1.26,2.93q1.28,3,1.37,3.16H712.1l-0.15-.3a7.32,7.32,0,0,0-1.21-1.69,9.09,9.09,0,0,0-2.41-1.67,11.86,11.86,0,0,0-3.06-.93,25.21,25.21,0,0,0-3.27-.37q-1.54-.06-4-0.09h-9.71l0.17,0.24q10,13.72,10.08,13.85a0.19,0.19,0,0,1,0,.13l-5.72,6.54-5.72,6.5s1.52,0,4.57,0h3.06q1.93,0,2.77,0,2.95,0,4.77-.11a27.83,27.83,0,0,0,3.62-.46,10,10,0,0,0,3.06-1.06,8.13,8.13,0,0,0,2.23-1.89,6.87,6.87,0,0,0,.89-1.56H713s-0.05.17-.15,0.46-0.28.76-.54,1.41-0.48,1.26-.67,1.82l-1.26,3.36-13,0q-13,0-13.11,0a0.18,0.18,0,0,1-.13-0.2,0.33,0.33,0,0,1,0-.13l11.55-13.22s-0.24-.34-0.71-1-1.24-1.68-2.28-3.12-2-2.73-2.82-3.86l-5.76-7.91,0-.33A0.7,0.7,0,0,1,684.19,175.65Z" fill="#666"/>
+  <path d="M696.21,215.3a1.68,1.68,0,0,1,.14-0.47,7.35,7.35,0,0,1,.37-0.78,2.53,2.53,0,0,1,.67-0.78,1.39,1.39,0,0,1,.92-0.34,1.45,1.45,0,0,1,1,.35,1.25,1.25,0,0,1,.41.95,3,3,0,0,1-.21.86q-0.21.6-.61,1.61t-0.64,1.73a2.51,2.51,0,0,0-.08.49q0,0.38.26,0.38a1,1,0,0,0,.29,0,1,1,0,0,0,.35-0.21,2.08,2.08,0,0,0,.41-0.54,4.45,4.45,0,0,0,.38-0.9,0.63,0.63,0,0,1,.08-0.21,0.56,0.56,0,0,1,.26,0q0.31,0,.31.15a1.68,1.68,0,0,1-.14.47,6,6,0,0,1-.38.78,2.56,2.56,0,0,1-.69.77,1.54,1.54,0,0,1-.95.34,1.44,1.44,0,0,1-.9-0.32,1.2,1.2,0,0,1-.43-1,1.54,1.54,0,0,1,.08-0.49q0.08-.23.66-1.75t0.67-1.85a2.54,2.54,0,0,0,.11-0.6q0-.37-0.26-0.37h0a1.07,1.07,0,0,0-.84.51,3.57,3.57,0,0,0-.58,1.29l0,0a0.12,0.12,0,0,0,0,0,0,0,0,0,1,0,0l0,0h-0.4A0.26,0.26,0,0,1,696.21,215.3Zm2.5-4.8a0.86,0.86,0,0,1,.29-0.64,1,1,0,0,1,.67-0.29,0.62,0.62,0,0,1,.46.18,0.68,0.68,0,0,1,.2.46,0.87,0.87,0,0,1-.31.64,1,1,0,0,1-.67.31,0.69,0.69,0,0,1-.43-0.15A0.64,0.64,0,0,1,698.71,210.5Z" fill="#666"/>
+  <path d="M725.4,189.08a2,2,0,0,0-.11-0.48,2.06,2.06,0,0,0-.5-0.76,1.39,1.39,0,0,0-1-.43,2.08,2.08,0,0,0-1.45.67,4.53,4.53,0,0,0-1.08,1.76,17.3,17.3,0,0,0-.89,3.55v0.24a1.16,1.16,0,0,1,0,.26,1.82,1.82,0,0,0,.39,1.34,1.4,1.4,0,0,0,.93.39,2.45,2.45,0,0,0,1.63-.72,3.64,3.64,0,0,0,1-1.11q0-.09.59-2.32T725.4,189.08Zm-6.89,3.71a6.4,6.4,0,0,1,1.65-4.16,4.85,4.85,0,0,1,3.71-2,2.46,2.46,0,0,1,2,1.06,1.08,1.08,0,0,1,1-.65,0.78,0.78,0,0,1,.5.17,0.53,0.53,0,0,1,.22.43q0,0.28-.8,3.47t-0.82,3.6a1.16,1.16,0,0,0,.15.71,0.64,0.64,0,0,0,.45.2,0.94,0.94,0,0,0,.43-0.2,4.91,4.91,0,0,0,.89-2.08,0.81,0.81,0,0,1,.22-0.45,0.63,0.63,0,0,1,.22,0h0.09q0.41,0,.41.19a3.44,3.44,0,0,1-.11.59,6.8,6.8,0,0,1-.43,1.17,3.69,3.69,0,0,1-.69,1.08,2.14,2.14,0,0,1-.69.45,2.31,2.31,0,0,1-.52,0,2.21,2.21,0,0,1-1.24-.32,1.66,1.66,0,0,1-.65-0.67l-0.13-.33s0,0-.09,0l-0.09.09a3.8,3.8,0,0,1-2.6,1.21,3,3,0,0,1-2.1-.87A3.65,3.65,0,0,1,718.51,192.78Z" fill="#666"/>
+  <path d="M729.58,195a1.68,1.68,0,0,1,.14-0.47,7.35,7.35,0,0,1,.37-0.78,2.53,2.53,0,0,1,.67-0.78,1.39,1.39,0,0,1,.92-0.34,1.45,1.45,0,0,1,1,.35,1.25,1.25,0,0,1,.41.95,3,3,0,0,1-.21.86q-0.21.6-.61,1.61t-0.64,1.73a2.51,2.51,0,0,0-.08.49q0,0.38.26,0.38a1,1,0,0,0,.29,0,1,1,0,0,0,.35-0.21,2.08,2.08,0,0,0,.41-0.54,4.45,4.45,0,0,0,.38-0.9,0.63,0.63,0,0,1,.08-0.21,0.56,0.56,0,0,1,.26,0q0.31,0,.31.15a1.68,1.68,0,0,1-.14.47,6,6,0,0,1-.38.78,2.56,2.56,0,0,1-.69.77,1.54,1.54,0,0,1-.95.34,1.44,1.44,0,0,1-.9-0.32,1.2,1.2,0,0,1-.43-1,1.54,1.54,0,0,1,.08-0.49q0.08-.23.66-1.75t0.67-1.85a2.54,2.54,0,0,0,.11-0.6q0-.37-0.26-0.37h0a1.07,1.07,0,0,0-.84.51,3.57,3.57,0,0,0-.58,1.29l0,0a0.12,0.12,0,0,0,0,0,0,0,0,0,1,0,0l0,0h-0.4A0.26,0.26,0,0,1,729.58,195Zm2.5-4.8a0.86,0.86,0,0,1,.29-0.64,1,1,0,0,1,.67-0.29,0.62,0.62,0,0,1,.46.18,0.68,0.68,0,0,1,.2.46,0.87,0.87,0,0,1-.31.64,1,1,0,0,1-.67.31,0.69,0.69,0,0,1-.43-0.15A0.64,0.64,0,0,1,732.07,190.24Z" fill="#666"/>
+  <path d="M743,182.56a2.36,2.36,0,0,0-1.24-.17,6.23,6.23,0,0,1-.67,0,0.18,0.18,0,0,1-.15-0.22s0-.09,0-0.24l0-.15a0.65,0.65,0,0,0,0-.11,0.38,0.38,0,0,1,0-.11q0-.09,0-0.06s0,0,.09,0a0.11,0.11,0,0,1,.11,0,0.3,0.3,0,0,0,.17,0l0.26,0h0.65l1,0h2a0.43,0.43,0,0,1,.35.11q0,0.09.8,6.11l0.78,6,0.5-.8q0.52-.78,1.39-2.17l1.91-3q3.79-6,3.84-6.09l0.07-.07,0.09-.06,0.13,0h2.95a5.27,5.27,0,0,0,.63,0q0.74,0,.74.24a1.78,1.78,0,0,1-.07.37q-0.07.26-.07,0.28a1.28,1.28,0,0,1-.8.13,9.64,9.64,0,0,0-1.11.07,0.62,0.62,0,0,0-.39.24q-0.06.11-1.56,6.13T754,194.91a0.17,0.17,0,0,0,0,.11l0.15,0.09a0.7,0.7,0,0,0,.37,0,3.47,3.47,0,0,1,.71,0h0.67a0.78,0.78,0,0,1,.13.24,1.43,1.43,0,0,1-.15.65,0.48,0.48,0,0,1-.35.11l-0.89,0-2,0h-2a6.4,6.4,0,0,0-.76,0q-0.37,0-.37-0.22s0-.13,0-0.3a0.68,0.68,0,0,1,.17-0.39,1.8,1.8,0,0,1,.5-0.07q0.59,0,1.3-.07a0.58,0.58,0,0,0,.41-0.26q0-.09.82-3.16t1.54-6.13l0.76-3.06-4.2,6.7q-4.25,6.76-4.35,6.87l-0.09,0a0.7,0.7,0,0,1-.35.07,0.39,0.39,0,0,1-.39-0.15q0-.09-0.89-6.72L744,182.67l-1.47,5.85q-1.45,5.76-1.45,6,0.13,0.72,1.56.72h0.22a0.42,0.42,0,0,1,.15.2,1,1,0,0,1-.07.39,0.68,0.68,0,0,1-.17.39l-0.24,0h-0.26l-0.74,0-1.39,0-1.34,0-0.8,0a1.17,1.17,0,0,1-.41,0,0.2,0.2,0,0,1-.09-0.2,2.3,2.3,0,0,1,.07-0.3,1.32,1.32,0,0,1,.11-0.33,0.51,0.51,0,0,1,.48-0.13,1.92,1.92,0,0,0,1.93-.87q0.09-.13,1.49-5.81T743,182.56Z" fill="#666"/>
+  <path d="M758,195a1.68,1.68,0,0,1,.14-0.47,7.37,7.37,0,0,1,.37-0.78,2.53,2.53,0,0,1,.67-0.78,1.39,1.39,0,0,1,.92-0.34,1.45,1.45,0,0,1,1,.35,1.25,1.25,0,0,1,.41.95,3,3,0,0,1-.21.86q-0.21.6-.61,1.61t-0.64,1.73a2.51,2.51,0,0,0-.08.49q0,0.38.26,0.38a1,1,0,0,0,.29,0,1,1,0,0,0,.35-0.21,2.08,2.08,0,0,0,.41-0.54,4.45,4.45,0,0,0,.38-0.9,0.63,0.63,0,0,1,.08-0.21,0.56,0.56,0,0,1,.26,0q0.31,0,.31.15a1.68,1.68,0,0,1-.14.47,6,6,0,0,1-.38.78,2.56,2.56,0,0,1-.69.77,1.54,1.54,0,0,1-.95.34,1.44,1.44,0,0,1-.9-0.32,1.2,1.2,0,0,1-.43-1,1.54,1.54,0,0,1,.08-0.49q0.08-.23.66-1.75t0.67-1.85a2.54,2.54,0,0,0,.11-0.6q0-.37-0.26-0.37h0a1.07,1.07,0,0,0-.84.51,3.57,3.57,0,0,0-.58,1.29l0,0a0.12,0.12,0,0,0,0,0,0,0,0,0,1,0,0l0,0h-0.4A0.26,0.26,0,0,1,758,195Zm2.5-4.8a0.86,0.86,0,0,1,.29-0.64,1,1,0,0,1,.67-0.29,0.62,0.62,0,0,1,.46.18,0.68,0.68,0,0,1,.2.46,0.87,0.87,0,0,1-.31.64,1,1,0,0,1-.67.31,0.69,0.69,0,0,1-.43-0.15A0.64,0.64,0,0,1,760.54,190.24Z" fill="#666"/>
 </svg>
 </figure>
 
 <p>Similarly, we write everywhere at once to different extents. Again, an attention distribution describes how much we write at every location. We do this by having the new value of a position in memory be a convex combination of the old memory content and the write value, with the position between the two decided by the attention weight.</p>
 <p><figure class="w-page" id="rnn-write">
-<svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="300" viewBox="0 0 984 300">
+<svg id="edges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="300" viewBox="0 0 984 300">
   <defs>
     <symbol id="array-1" data-name="array-1" viewBox="0 0 37.5 37.5">
       <rect x="0.75" y="0.75" width="36" height="36" rx="6" ry="6" fill="#fff" stroke="#8c8c8c" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -724,12 +710,23 @@ p {text-align: justify; }
         </g>
       </g>
     </symbol>
+    <symbol id="pointer" data-name="pointer" viewBox="0 0 26.87 26.87">
+      <circle cx="13.43" cy="13.43" r="12.93" fill="none" stroke="#ffdc8c" stroke-miterlimit="10"/>
+      <circle cx="13.43" cy="13.43" r="10.38" fill="#ffb200"/>
+      <polygon points="11.32 19.26 11.32 17.43 10.72 17.43 10.71 16.14 10.1 16.21 10.1 15 9.54 14.99 9.46 13.78 8.88 13.78 8.89 13.16 8.28 13.16 8.28 11.34 10.11 11.34 10.11 11.94 10.71 11.94 10.71 6.46 11.33 6.45 11.33 5.86 12.54 5.86 12.54 6.45 13.16 6.47 13.16 8.89 14.37 8.89 14.39 9.49 16.21 9.51 16.21 10.12 17.43 10.12 17.43 10.79 18.04 10.73 18.05 11.39 18.65 11.33 18.65 15.61 18.04 15.52 17.98 17.43 17.43 17.43 17.43 19.26 11.32 19.26" fill="#fff" opacity="0.2"/>
+      <g>
+        <path d="M10.11,11.94c0-.09,0-0.19,0-0.28s0-.21,0-0.32H8.28v1.82H8.89V11.95h1.23v0.63h0.6v0.6h0.61V13.09q0-2.4,0-4.8,0-.92,0-1.85h1.21V5.85H11.33v0.6H10.71v5.47h-0.6Zm4.28-2.44a0.45,0.45,0,0,1,0-.07c0-.15,0-0.3,0-0.45s0,0,0-.08H13.16V6.47H12.55v5.47h0.61V9.51h1.24s0,0.06,0,.09q0,1.12,0,2.25s0,0.07,0,.1H15V10.12h1.23v2.43h0.6V10.71l0.57,0s0,0,0,.05,0,0.29,0,.44,0,0.07,0,.11H18a0,0,0,0,1,.06.06c0,0.24,0,.48,0,0.72q0,1.71,0,3.41s0,0,0,.08h-0.6s0,0,0,0q0,0.86,0,1.72s0,0,0,.06H16.81v1.21H11.94V17.42H11.33V16.21h-0.6a11.4,11.4,0,0,0,0,1.22h0.6v1.83c2,0,4.07,0,6.11,0,0-.1,0-0.19,0-0.28,0-.46,0-0.93,0-1.39a1.53,1.53,0,0,0,0-.16H18c0.05,0,.07,0,0.07-0.07,0-.45,0-0.89,0-1.34,0-.13,0-0.26,0-0.4l0.3,0h0.3V11.33H18v-0.6H17.43V10.11H16.21V9.51H14.39ZM10.1,15v1.21h0.52a0.07,0.07,0,0,0,.08-0.08c0-.32,0-0.65,0-1,0-.06,0-0.11,0-0.17H10.11V13.77H9.49V13.16H8.91a2.7,2.7,0,0,0,0,.62H9.47s0,0,0,.07,0,0.27,0,.41,0,0.45,0,.68a0,0,0,0,0,.05.06H10.1Z" fill="#fff"/>
+        <path d="M17.43,17.43s0,0,0-.06q0-.86,0-1.72s0,0,0,0H18s0-.06,0-0.08q0-1.71,0-3.41c0-.24,0-0.48,0-0.72A0,0,0,0,0,18,11.33H17.44s0-.07,0-0.11,0-.29,0-0.44,0-.05,0-0.05l-0.57,0v1.84h-0.6V10.12H15v1.82H14.38s0-.07,0-0.1q0-1.12,0-2.25s0-.06,0-0.09h1.81v0.6h1.22v0.62H18v0.6h0.61v4.28h-0.3l-0.3,0c0,0.14,0,.27,0,0.4,0,0.45,0,.89,0,1.34,0,0.05,0,.07-0.07.07H17.43Z" fill="#fff"/>
+        <path d="M17.43,17.43a1.53,1.53,0,0,1,0,.16c0,0.46,0,.93,0,1.39,0,0.09,0,.17,0,0.28-2,0-4.06,0-6.11,0V17.43h-0.6a11.4,11.4,0,0,1,0-1.22h0.6v1.21h0.61v1.22h4.88V17.43h0.62Z" fill="#fff"/>
+        <path d="M11.33,6.45q0,0.92,0,1.85,0,2.4,0,4.8v0.07H10.72v-0.6h-0.6V11.93h0.6V6.46h0.61Z" fill="#fff"/>
+        <path d="M14.39,9.49H13.16v2.43H12.55V6.47h0.61V8.89h1.21s0,0.06,0,.08,0,0.3,0,.45a0.44,0.44,0,0,0,0,.07h0Z" fill="#fff"/>
+        <path d="M10.1,15H9.54a0,0,0,0,1-.05-0.06c0-.23,0-0.45,0-0.68s0-.27,0-0.41,0,0,0-.07H8.88a2.7,2.7,0,0,1,0-.62H9.49v0.61h0.62V15h0.61c0,0.06,0,.12,0,0.17,0,0.32,0,.65,0,1a0.07,0.07,0,0,1-.08.08H10.1V15Z" fill="#fff"/>
+        <path d="M10.11,11.93H8.89v1.21H8.28V11.34h1.83c0,0.11,0,.21,0,0.32s0,0.19,0,.28h0Z" fill="#fff"/>
+        <path d="M11.33,6.45V5.85h1.21v0.6H11.33Z" fill="#fff"/>
+      </g>
+    </symbol>
   </defs>
   <title>rnn</title>
-  <g id="_Group_" data-name="&lt;Group&gt;" opacity="0.2">
-    <rect x="162" y="126" width="264" height="48" rx="10" ry="10" opacity="0.04"/>
-    <rect x="162" y="126" width="264" height="48" rx="10" ry="10" fill="#ff0"/>
-  </g>
   <g id="paths">
     <path id="path24182" d="M288,48.7c0,52.66-101.44,52.89-102,76.88V251" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5"/>
     <path id="path24184" d="M290,48.7c0,52.66-67.44,52.89-68,76.88V251" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -753,16 +750,16 @@ p {text-align: justify; }
     <use width="36" height="36" transform="translate(384 132)" xlink:href="#array-positive-value"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(432 216)" font-size="12" font-family="Open Sans">memory</text>
+    <text transform="translate(440 216)" font-size="13" font-family="Open Sans">memory</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(432 276)" font-size="12" font-family="Open Sans">new memory</text>
+    <text transform="translate(440 276)" font-size="13" font-family="Open Sans">new memory</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(324 36)" font-size="12" font-family="Open Sans">write value</text>
+    <text transform="translate(324 36)" font-size="13" font-family="Open Sans">write value</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(432 156)" font-size="12" font-family="Open Sans">attention</text>
+    <text transform="translate(440 154)" font-size="13" font-family="Open Sans">attention</text>
   </g>
   <use id="write-result" width="36" height="36" transform="translate(276 12)" xlink:href="#array-vector"/>
   <g id="memory">
@@ -783,8 +780,9 @@ p {text-align: justify; }
     <use width="36" height="36" transform="translate(348 252)" xlink:href="#array-vector"/>
     <use width="36" height="36" transform="translate(384 252)" xlink:href="#array-vector"/>
   </g>
+  <use width="26.87" height="26.87" transform="translate(129.37 136.54)" xlink:href="#pointer"/>
   <g opacity="0.6">
-    <text transform="translate(560 91.12)" font-size="12" font-family="Open Sans">Instead of writing to one location, we write <tspan x="0" y="18">everywhere, just to different extents.</tspan></text>
+    <text transform="translate(560 91.88)" font-size="13" font-family="Open Sans">Instead of writing to one location, we write <tspan x="0" y="20">everywhere, just to different extents.</tspan></text>
   </g>
   <g>
     <path d="M570.73,163.43a2.39,2.39,0,0,0-1.25-.18,6.31,6.31,0,0,1-.68,0,0.19,0.19,0,0,1-.15-0.22s0-.09,0-0.24l0-.15a0.66,0.66,0,0,0,0-.11,0.38,0.38,0,0,1,0-.11q0-.09,0-0.07s0,0,.09,0a0.11,0.11,0,0,1,.11,0,0.31,0.31,0,0,0,.18,0l0.26,0h0.66l1,0h2a0.44,0.44,0,0,1,.35.11q0,0.09.81,6.18l0.79,6.11,0.5-.81q0.53-.79,1.4-2.19l1.93-3.07q3.83-6.11,3.88-6.16l0.07-.07,0.09-.07,0.13,0h3a5.33,5.33,0,0,0,.64,0q0.74,0,.74.24a1.8,1.8,0,0,1-.07.37q-0.07.26-.07,0.28a1.3,1.3,0,0,1-.81.13,9.75,9.75,0,0,0-1.12.07,0.63,0.63,0,0,0-.39.24q-0.07.11-1.58,6.2t-1.53,6.16a0.17,0.17,0,0,0,0,.11l0.15,0.09a0.7,0.7,0,0,0,.37,0,3.5,3.5,0,0,1,.72,0h0.68a0.79,0.79,0,0,1,.13.24,1.45,1.45,0,0,1-.15.66,0.48,0.48,0,0,1-.35.11l-0.9,0-2,0h-2a6.47,6.47,0,0,0-.77,0q-0.37,0-.37-0.22s0-.13,0-0.31a0.69,0.69,0,0,1,.18-0.39,1.82,1.82,0,0,1,.5-0.07q0.59,0,1.31-.07a0.58,0.58,0,0,0,.42-0.26q0-.09.83-3.2t1.56-6.2l0.77-3.09-4.25,6.77q-4.29,6.83-4.4,6.94l-0.09,0a0.71,0.71,0,0,1-.35.07,0.39,0.39,0,0,1-.39-0.15q0-.09-0.9-6.79l-0.85-6.73-1.49,5.91q-1.47,5.83-1.47,6,0.13,0.72,1.58.72h0.22a0.42,0.42,0,0,1,.15.2,1,1,0,0,1-.07.39,0.69,0.69,0,0,1-.18.39l-0.24,0H570l-0.74,0-1.4,0-1.36,0-0.81,0a1.18,1.18,0,0,1-.42,0,0.2,0.2,0,0,1-.09-0.2,2.33,2.33,0,0,1,.07-0.31,1.34,1.34,0,0,1,.11-0.33,0.51,0.51,0,0,1,.48-0.13,1.94,1.94,0,0,0,1.95-.88q0.09-.13,1.51-5.87T570.73,163.43Z" fill="#666"/>
@@ -829,13 +827,13 @@ p {text-align: justify; }
       .range([-14, 14]);
 
   var memoryData = [
+    {x: 0.9, y: 0.9},
+    {x: 0.8, y: 0.8},
+    {x: 0.1, y: 0.9},
     {x: 0.4, y: 0.2},
     {x: 0.2, y: 0.2},
-    {x: 0.1, y: 0.9},
-    {x: 0.9, y: 0.9},
     {x: 0.4, y: 0.3},
-    {x: 0.1, y: 0.5},
-    {x: 0.8, y: 0.8}
+    {x: 0.1, y: 0.5}
   ];
 
   var writeData = {x: 0.9, y: 0};
@@ -872,47 +870,47 @@ p {text-align: justify; }
       .data(memoryData)
     .enter().append("line")
       .attr("class", "vector")
-      .attr("transform", (d) => {
+      .attr("transform", function(d) {
         return `translate(${d.left + d.width / 2 - vectorScale(d.x) / 2}, ${d.top + d.width / 2 - vectorScale(d.y) / 2})`
       })
-      .attr("x2", (d) => vectorScale(d.x))
-      .attr("y2", (d) => vectorScale(d.y))
+      .attr("x2", function(d) { return  vectorScale(d.x); })
+      .attr("y2", function(d) { return  vectorScale(d.y); })
       .attr("marker-end", "url(#arrowhead)")
       .style("stroke", "grey");
 
   function updateReadAttention(data) {
     attention.data(data)
-        .style("opacity", (d) => d + 0.05);
+        .style("opacity", function(d) { return  d + 0.05; });
 
     path.data(data)
-        .style("stroke-opacity", (d) => d + 0.1);
+        .style("stroke-opacity", function(d) { return  d + 0.1; });
 
-    var resultX = d3.sum(memoryData, (d, i) => d.x * data[i]) / d3.sum(data);
-    var resultY = d3.sum(memoryData, (d, i) => d.y * data[i]) / d3.sum(data);
+    var resultX = d3.sum(memoryData, function(d, i) { return d.x * data[i]; }) / d3.sum(data);
+    var resultY = d3.sum(memoryData, function(d, i) { return d.y * data[i]; }) / d3.sum(data);
 
     resultArrow
         .attr("transform",`translate(${resultBBox.left + resultBBox.width / 2 - svgBBox.left - vectorScale(resultX) / 2}, ${resultBBox.top + resultBBox.width / 2 - svgBBox.top - vectorScale(resultY) / 2})`)
-        .attr("x2", (d) => vectorScale(resultX))
-        .attr("y2", (d) => vectorScale(resultY));
+        .attr("x2", function(d) { return  vectorScale(resultX); })
+        .attr("y2", function(d) { return  vectorScale(resultY); });
   }
 
   var length = memory.size();
-  var attentionData = d3.range(length).map(() => Math.random());
+  var attentionData = d3.range(length).map(function() { return Math.random(); });
   updateReadAttention(attentionData);
 
   readHtml.on("mousemove", function() {
     var data = [];
     attention.each(function() {
       var bbox = this.getBoundingClientRect()
-      var distance = Math.abs(bbox.left - d3.event.x + bbox.width / 2);
+      var distance = Math.abs(bbox.left - d3.event.clientX + bbox.width / 2);
       data.push(Math.exp(-distance / 25));
     });
-    data = data.map((d) => d / d3.sum(data));
+    data = data.map(function(d) { return  d / d3.sum(data); });
     updateReadAttention(data);
   });
 
-  var initReadData = d3.range(attention.size()).map((d) => Math.exp(-d));
-  initReadData = initReadData.map((d) => d / d3.sum(initReadData));
+  var initReadData = d3.range(attention.size()).map(function(d) { return  Math.exp(-d); });
+  initReadData = initReadData.map(function(d) { return  d / d3.sum(initReadData); });
   updateReadAttention(initReadData);
 
   //
@@ -928,14 +926,14 @@ p {text-align: justify; }
   var writeSvgBBox = writeSvg.node().getBoundingClientRect();
   var writeResult = writeSvg.select("#write-result").style("opacity", 0);
   var writeResultBBox = writeResult.node().getBoundingClientRect();
-  var newMemoryData = memoryData.map(d => { return {}; });
+  var newMemoryData = memoryData.map(function(){ return {}; });
 
   appendArrowhead(writeSvg);
   var writeArrow = writeSvg.append("line")
       .attr("class", "write-line")
       .attr("marker-end", "url(#arrowhead)")
       .style("stroke", "grey")
-      .attr("transform",`translate(${writeResultBBox.left + writeResultBBox.width / 2 - writeSvgBBox.left - vectorScale(writeData.x) / 2}, ${writeResultBBox.top + writeResultBBox.width / 2 - writeSvgBBox.top - vectorScale(writeData.y) / 2})`)
+      .attr("transform", "translate(" + (writeResultBBox.left + writeResultBBox.width / 2 - writeSvgBBox.left - vectorScale(writeData.x) / 2) + ", " + (writeResultBBox.top + writeResultBBox.width / 2 - writeSvgBBox.top - vectorScale(writeData.y) / 2) + ")")
       .attr("x2", vectorScale(writeData.x))
       .attr("y2", vectorScale(writeData.y));
 
@@ -952,11 +950,11 @@ p {text-align: justify; }
       .data(memoryData)
     .enter().append("line")
       .attr("class", "vector")
-      .attr("transform", (d) => {
-        return `translate(${d.left + d.width / 2 - vectorScale(d.x) / 2}, ${d.top + d.width / 2 - vectorScale(d.y) / 2})`
+      .attr("transform", function(d) {
+        return "translate(" + (d.left + d.width / 2 - vectorScale(d.x) / 2) + ", " + (d.top + d.width / 2 - vectorScale(d.y) / 2) + ")";
       })
-      .attr("x2", (d) => vectorScale(d.x))
-      .attr("y2", (d) => vectorScale(d.y))
+      .attr("x2", function(d) { return  vectorScale(d.x); })
+      .attr("y2", function(d) { return  vectorScale(d.y); })
       .attr("marker-end", "url(#arrowhead)")
       .style("stroke", "grey");
 
@@ -977,45 +975,45 @@ p {text-align: justify; }
       .style("stroke", "grey");
 
   function updateWriteAttention(data) {
-    newMemoryData.forEach((d, i) => {
+    newMemoryData.forEach(function(d, i) {
       d.x = (memoryData[i].x + writeData.x * data[i]) / (1 + data[i]);
       d.y = (memoryData[i].y + writeData.y * data[i]) / (1 + data[i]);
     });
     writeNewMemoryVectors
-        .attr("transform", (d) => {
-          return `translate(${d.left + d.width / 2 - vectorScale(d.x) / 2}, ${d.top + d.width / 2 - vectorScale(d.y) / 2})`
+        .attr("transform", function(d) {
+          return "translate(" + (d.left + d.width / 2 - vectorScale(d.x) / 2) + ", " + (d.top + d.width / 2 - vectorScale(d.y) / 2) + ")";
         })
-        .attr("x2", (d) => vectorScale(d.x))
-        .attr("y2", (d) => vectorScale(d.y));
+        .attr("x2", function(d) { return  vectorScale(d.x); })
+        .attr("y2", function(d) { return  vectorScale(d.y); });
 
     writeAttention.data(data)
-        .style("opacity", (d) => d + 0.05);
+        .style("opacity", function(d) { return  d + 0.05; });
 
     writePath.data(data)
-        .style("stroke-opacity", (d) => d + 0.1);
+        .style("stroke-opacity", function(d) { return  d + 0.1; });
   }
 
   writeHtml.on("mousemove", function() {
     var data = [];
     writeAttention.each(function() {
       var bbox = this.getBoundingClientRect()
-      var distance = Math.abs(bbox.left - d3.event.x + bbox.width / 2);
+      var distance = Math.abs(bbox.left - d3.event.clientX + bbox.width / 2);
       data.push(Math.exp(-distance / 25));
     });
-    data = data.map((d) => d / d3.sum(data));
+    data = data.map(function(d) { return  d / d3.sum(data); });
     updateWriteAttention(data);
   });
 
-  var initWriteData = d3.range(writeAttention.size()).map((d) => Math.exp(-d));
-  initWriteData = initWriteData.map((d) => d / d3.sum(initWriteData));
+  var initWriteData = d3.range(writeAttention.size()).map(function(d) { return  Math.exp(-d); });
+  initWriteData = initWriteData.map(function(d) { return  d / d3.sum(initWriteData); });
   updateWriteAttention(initWriteData);
 
 })();
-</script></p>
+</script>
+</p>
 <p>But how do NTMs decide which positions in memory to focus their attention on? They actually use a combination of two different methods: content-based attention and location-based attention. Content-based attention allows NTMs to search through their memory and focus on places that match what they’re looking for, while location-based attention allows relative movement in memory, enabling the NTM to loop.</p>
-<!-- Interpolation input seems to be able to be negative -->
 <p><figure class="w-page" id="rnn-write-detail">
-<svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="744" viewBox="0 0 984 744">
+<svg id="edges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="744" viewBox="0 0 984 744">
   <defs>
     <symbol id="array-5" data-name="array-5" viewBox="0 0 181.5 37.5">
       <rect x="0.75" y="0.75" width="180" height="36" rx="6" ry="6" fill="#fff" stroke="#8c8c8c" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -1049,20 +1047,23 @@ p {text-align: justify; }
         </g>
       </g>
     </symbol>
+    <symbol id="pointer" data-name="pointer" viewBox="0 0 26.87 26.87">
+      <circle cx="13.43" cy="13.43" r="12.93" fill="none" stroke="#ffdc8c" stroke-miterlimit="10"/>
+      <circle cx="13.43" cy="13.43" r="10.38" fill="#ffb200"/>
+      <polygon points="11.32 19.26 11.32 17.43 10.72 17.43 10.71 16.14 10.1 16.21 10.1 15 9.54 14.99 9.46 13.78 8.88 13.78 8.89 13.16 8.28 13.16 8.28 11.34 10.11 11.34 10.11 11.94 10.71 11.94 10.71 6.46 11.33 6.45 11.33 5.86 12.54 5.86 12.54 6.45 13.16 6.47 13.16 8.89 14.37 8.89 14.39 9.49 16.21 9.51 16.21 10.12 17.43 10.12 17.43 10.79 18.04 10.73 18.05 11.39 18.65 11.33 18.65 15.61 18.04 15.52 17.98 17.43 17.43 17.43 17.43 19.26 11.32 19.26" fill="#fff" opacity="0.2"/>
+      <g>
+        <path d="M10.11,11.94c0-.09,0-0.19,0-0.28s0-.21,0-0.32H8.28v1.82H8.89V11.95h1.23v0.63h0.6v0.6h0.61V13.09q0-2.4,0-4.8,0-.92,0-1.85h1.21V5.85H11.33v0.6H10.71v5.47h-0.6Zm4.28-2.44a0.45,0.45,0,0,1,0-.07c0-.15,0-0.3,0-0.45s0,0,0-.08H13.16V6.47H12.55v5.47h0.61V9.51h1.24s0,0.06,0,.09q0,1.12,0,2.25s0,0.07,0,.1H15V10.12h1.23v2.43h0.6V10.71l0.57,0s0,0,0,.05,0,0.29,0,.44,0,0.07,0,.11H18a0,0,0,0,1,.06.06c0,0.24,0,.48,0,0.72q0,1.71,0,3.41s0,0,0,.08h-0.6s0,0,0,0q0,0.86,0,1.72s0,0,0,.06H16.81v1.21H11.94V17.42H11.33V16.21h-0.6a11.4,11.4,0,0,0,0,1.22h0.6v1.83c2,0,4.07,0,6.11,0,0-.1,0-0.19,0-0.28,0-.46,0-0.93,0-1.39a1.53,1.53,0,0,0,0-.16H18c0.05,0,.07,0,0.07-0.07,0-.45,0-0.89,0-1.34,0-.13,0-0.26,0-0.4l0.3,0h0.3V11.33H18v-0.6H17.43V10.11H16.21V9.51H14.39ZM10.1,15v1.21h0.52a0.07,0.07,0,0,0,.08-0.08c0-.32,0-0.65,0-1,0-.06,0-0.11,0-0.17H10.11V13.77H9.49V13.16H8.91a2.7,2.7,0,0,0,0,.62H9.47s0,0,0,.07,0,0.27,0,.41,0,0.45,0,.68a0,0,0,0,0,.05.06H10.1Z" fill="#fff"/>
+        <path d="M17.43,17.43s0,0,0-.06q0-.86,0-1.72s0,0,0,0H18s0-.06,0-0.08q0-1.71,0-3.41c0-.24,0-0.48,0-0.72A0,0,0,0,0,18,11.33H17.44s0-.07,0-0.11,0-.29,0-0.44,0-.05,0-0.05l-0.57,0v1.84h-0.6V10.12H15v1.82H14.38s0-.07,0-0.1q0-1.12,0-2.25s0-.06,0-0.09h1.81v0.6h1.22v0.62H18v0.6h0.61v4.28h-0.3l-0.3,0c0,0.14,0,.27,0,0.4,0,0.45,0,.89,0,1.34,0,0.05,0,.07-0.07.07H17.43Z" fill="#fff"/>
+        <path d="M17.43,17.43a1.53,1.53,0,0,1,0,.16c0,0.46,0,.93,0,1.39,0,0.09,0,.17,0,0.28-2,0-4.06,0-6.11,0V17.43h-0.6a11.4,11.4,0,0,1,0-1.22h0.6v1.21h0.61v1.22h4.88V17.43h0.62Z" fill="#fff"/>
+        <path d="M11.33,6.45q0,0.92,0,1.85,0,2.4,0,4.8v0.07H10.72v-0.6h-0.6V11.93h0.6V6.46h0.61Z" fill="#fff"/>
+        <path d="M14.39,9.49H13.16v2.43H12.55V6.47h0.61V8.89h1.21s0,0.06,0,.08,0,0.3,0,.45a0.44,0.44,0,0,0,0,.07h0Z" fill="#fff"/>
+        <path d="M10.1,15H9.54a0,0,0,0,1-.05-0.06c0-.23,0-0.45,0-0.68s0-.27,0-0.41,0,0,0-.07H8.88a2.7,2.7,0,0,1,0-.62H9.49v0.61h0.62V15h0.61c0,0.06,0,.12,0,0.17,0,0.32,0,.65,0,1a0.07,0.07,0,0,1-.08.08H10.1V15Z" fill="#fff"/>
+        <path d="M10.11,11.93H8.89v1.21H8.28V11.34h1.83c0,0.11,0,.21,0,0.32s0,0.19,0,.28h0Z" fill="#fff"/>
+        <path d="M11.33,6.45V5.85h1.21v0.6H11.33Z" fill="#fff"/>
+      </g>
+    </symbol>
   </defs>
   <title>rnn</title>
-  <g id="_Group_" data-name="&lt;Group&gt;" opacity="0.2">
-    <rect x="839.59" y="72" width="48" height="48" rx="10" ry="10" opacity="0.04"/>
-    <rect x="839.59" y="72" width="48" height="48" rx="10" ry="10" fill="#ff0"/>
-  </g>
-  <g id="_Group_2" data-name="&lt;Group&gt;" opacity="0.2">
-    <rect x="839.59" y="336" width="48" height="48" rx="10" ry="10" opacity="0.04"/>
-    <rect x="839.59" y="336" width="48" height="48" rx="10" ry="10" fill="#ff0"/>
-  </g>
-  <g id="_Group_3" data-name="&lt;Group&gt;" opacity="0.2">
-    <rect x="839.59" y="468" width="120" height="48" rx="10" ry="10" opacity="0.04"/>
-    <rect x="839.59" y="468" width="120" height="48" rx="10" ry="10" fill="#ff0"/>
-  </g>
   <g>
     <line x1="813.09" x2="813.59" y2="741" fill="#fff"/>
     <g>
@@ -1119,15 +1120,15 @@ p {text-align: justify; }
       <path d="M425,78.18a27.2,27.2,0,0,0-4.28-7.69L425,72l4.28-1.55A27.18,27.18,0,0,0,425,78.18Z" fill="#666"/>
     </g>
     <g>
-      <line x1="845.09" y1="96" x2="478.43" y2="96" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+      <line x1="835.09" y1="96" x2="478.43" y2="96" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
       <path d="M473,96a27.2,27.2,0,0,0,7.69-4.28L479.14,96l1.55,4.28A27.18,27.18,0,0,0,473,96Z" fill="#666"/>
     </g>
     <g>
-      <line x1="845.09" y1="366" x2="478.43" y2="366" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+      <line x1="835.09" y1="366" x2="478.43" y2="366" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
       <path d="M473,366a27.2,27.2,0,0,0,7.69-4.28L479.14,366l1.55,4.28A27.18,27.18,0,0,0,473,366Z" fill="#666"/>
     </g>
     <g>
-      <line x1="845.09" y1="492" x2="478.43" y2="492" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+      <line x1="835.09" y1="492" x2="478.43" y2="492" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
       <path d="M473,492a27.2,27.2,0,0,0,7.69-4.28L479.14,492l1.55,4.28A27.18,27.18,0,0,0,473,492Z" fill="#666"/>
     </g>
     <g>
@@ -1177,7 +1178,7 @@ p {text-align: justify; }
       <rect x="384" y="614" width="84" height="24" rx="12" ry="12" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
     <g>
-      <rect x="383" y="612" width="84" height="24" rx="12" ry="12" fill="#e5daf2"/>
+      <rect x="383" y="612" width="84" height="24" rx="12" ry="12" fill="#fff"/>
       <rect x="383" y="612" width="84" height="24" rx="12" ry="12" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
   </g>
@@ -1187,7 +1188,7 @@ p {text-align: justify; }
       <rect x="384" y="482" width="84" height="24" rx="12" ry="12" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
     <g>
-      <rect x="383" y="480" width="84" height="24" rx="12" ry="12" fill="#e5daf2"/>
+      <rect x="383" y="480" width="84" height="24" rx="12" ry="12" fill="#fff"/>
       <rect x="383" y="480" width="84" height="24" rx="12" ry="12" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
   </g>
@@ -1197,7 +1198,7 @@ p {text-align: justify; }
       <rect x="384" y="350" width="84" height="24" rx="12" ry="12" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
     <g>
-      <rect x="383" y="348" width="84" height="24" rx="12" ry="12" fill="#e5daf2"/>
+      <rect x="383" y="348" width="84" height="24" rx="12" ry="12" fill="#fff"/>
       <rect x="383" y="348" width="84" height="24" rx="12" ry="12" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
   </g>
@@ -1207,7 +1208,7 @@ p {text-align: justify; }
       <rect x="384" y="218" width="84" height="24" rx="12" ry="12" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
     <g>
-      <rect x="383" y="216" width="84" height="24" rx="12" ry="12" fill="#e5daf2"/>
+      <rect x="383" y="216" width="84" height="24" rx="12" ry="12" fill="#fff"/>
       <rect x="383" y="216" width="84" height="24" rx="12" ry="12" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
   </g>
@@ -1217,7 +1218,7 @@ p {text-align: justify; }
       <rect x="384" y="86" width="84" height="24" rx="12" ry="12" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
     <g>
-      <rect x="383" y="84" width="84" height="24" rx="12" ry="12" fill="#e5daf2"/>
+      <rect x="383" y="84" width="84" height="24" rx="12" ry="12" fill="#fff"/>
       <rect x="383" y="84" width="84" height="24" rx="12" ry="12" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     </g>
   </g>
@@ -1226,8 +1227,8 @@ p {text-align: justify; }
   <use width="181.5" height="37.5" transform="translate(334 406.75)" xlink:href="#array-5"/>
   <use id="array-5-10" data-name="array-5" width="181.5" height="37.5" transform="translate(334 539.75)" xlink:href="#array-5"/>
   <use width="181.5" height="37.5" transform="translate(334 670.75)" xlink:href="#array-5"/>
-  <use width="37.5" height="37.5" transform="translate(844.84 341.75)" xlink:href="#array-1"/>
-  <use id="array-3-3" data-name="array-3" width="109" height="37.5" transform="translate(844.84 472.75)" xlink:href="#array-3"/>
+  <use width="37.5" height="37.5" transform="translate(834.84 341.75)" xlink:href="#array-1"/>
+  <use id="array-3-3" data-name="array-3" width="109" height="37.5" transform="translate(834.84 472.75)" xlink:href="#array-3"/>
   <use width="181.5" height="37.5" transform="translate(334 142.75)" xlink:href="#array-5"/>
   <g id="dot">
     <use width="36" height="36" transform="translate(335 143.25)" xlink:href="#array-negative-value"/>
@@ -1245,11 +1246,11 @@ p {text-align: justify; }
     <use id="array-positive-value-19" data-name="array-positive-value" width="36" height="36" transform="translate(479 276)" xlink:href="#array-positive-value"/>
   </g>
   <g id="shift">
-    <use width="36" height="36" transform="translate(845.59 473)" xlink:href="#array-positive-value"/>
-    <use width="36" height="36" transform="translate(881.59 473)" xlink:href="#array-positive-value"/>
-    <use width="36" height="36" transform="translate(917.59 473)" xlink:href="#array-positive-value"/>
+    <use width="36" height="36" transform="translate(835.59 473)" xlink:href="#array-positive-value"/>
+    <use width="36" height="36" transform="translate(871.59 473)" xlink:href="#array-positive-value"/>
+    <use width="36" height="36" transform="translate(907.59 473)" xlink:href="#array-positive-value"/>
   </g>
-  <use id="interpolate-amount" width="36" height="36" transform="translate(845.59 342)" xlink:href="#array-positive-value"/>
+  <use id="interpolate-amount" width="36" height="36" transform="translate(835.59 342)" xlink:href="#array-positive-value"/>
   <g id="previous">
     <use width="36" height="36" transform="translate(593.34 276)" xlink:href="#array-positive-value"/>
     <use width="36" height="36" transform="translate(629.34 276)" xlink:href="#array-positive-value"/>
@@ -1278,21 +1279,21 @@ p {text-align: justify; }
     <use width="36" height="36" transform="translate(443 671)" xlink:href="#array-positive-value"/>
     <use width="36" height="36" transform="translate(479 671)" xlink:href="#array-positive-value"/>
   </g>
-  <use width="37.5" height="37.5" transform="translate(844.84 76.75)" xlink:href="#array-1"/>
+  <use width="37.5" height="37.5" transform="translate(834.84 76.75)" xlink:href="#array-1"/>
   <g opacity="0.6">
-    <text transform="translate(166 68.12)" font-size="12" font-family="Open Sans">First, the controller gives <tspan x="0" y="18">a query vector and each </tspan><tspan x="0" y="36">memory entry is scored </tspan><tspan x="0" y="54">for similarity with the </tspan><tspan x="0" y="72">query.</tspan></text>
+    <text transform="translate(166 68.88)" font-size="13" font-family="Open Sans">First, the controller gives a <tspan x="0" y="20">query vector and each </tspan><tspan x="0" y="40">memory entry is scored for </tspan><tspan x="0" y="60">similarity with the query.</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(167.5 206.12)" font-size="12" font-family="Open Sans">The scores are then <tspan x="0" y="18">converted into a </tspan><tspan x="0" y="36">distribution using </tspan><tspan x="0" y="54">softmax.</tspan></text>
+    <text transform="translate(167.5 206.88)" font-size="13" font-family="Open Sans">The scores are then <tspan x="0" y="20">converted into a </tspan><tspan x="0" y="40">distribution using softmax.</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(167.5 345.12)" font-size="12" font-family="Open Sans">Next, we interpolate the <tspan x="0" y="18">attention from the </tspan><tspan x="0" y="36">previous time step. </tspan></text>
+    <text transform="translate(167.5 345.88)" font-size="13" font-family="Open Sans">Next, we interpolate <tspan x="0" y="20">the attention from the </tspan><tspan x="0" y="40">previous time step. </tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(167.5 458.12)" font-size="12" font-family="Open Sans">We convolve the <tspan x="0" y="18">attention with a shift </tspan><tspan x="0" y="36">filter — this allows the </tspan><tspan x="0" y="54">controller to move its </tspan><tspan x="0" y="72">focus.</tspan></text>
+    <text transform="translate(167.5 458.88)" font-size="13" font-family="Open Sans">We convolve the <tspan x="0" y="20">attention with a shift </tspan><tspan x="0" y="40">filter — this allows the </tspan><tspan x="0" y="60">controller to move its </tspan><tspan x="0" y="80">focus.</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(167.5 591.12)" font-size="12" font-family="Open Sans">Finally, we sharpen the <tspan x="0" y="18">attention distribution. </tspan><tspan x="0" y="36">This final attention </tspan><tspan x="0" y="54">distribution is fed to the </tspan><tspan x="0" y="72">read or write operation.</tspan></text>
+    <text transform="translate(167.5 591.88)" font-size="13" font-family="Open Sans">Finally, we sharpen the <tspan x="0" y="20">attention distribution. </tspan><tspan x="0" y="40">This final attention </tspan><tspan x="0" y="60">distribution is fed to the </tspan><tspan x="0" y="80">read or write operation.</tspan></text>
   </g>
   <g>
     <path d="M396.26,355.49a0.7,0.7,0,0,1,.19-0.52,0.72,0.72,0,0,1,.53-0.18,0.71,0.71,0,0,1,.52.18,0.7,0.7,0,0,1,.19.52,0.68,0.68,0,0,1-.19.51,0.7,0.7,0,0,1-.52.19,0.71,0.71,0,0,1-.53-0.19A0.68,0.68,0,0,1,396.26,355.49ZM397.6,363h-1.26v-5.94h1.26V363Z" fill="#666"/>
@@ -1347,7 +1348,7 @@ p {text-align: justify; }
     <path d="M449.87,99.27a2.6,2.6,0,0,1-2-.79,4,4,0,0,1,0-4.56,2.72,2.72,0,0,1,2.12-.81,4,4,0,0,1,1.69.35l-0.38,1a3.83,3.83,0,0,0-1.32-.31q-1.54,0-1.54,2a2.45,2.45,0,0,0,.38,1.5,1.33,1.33,0,0,0,1.13.5,3.23,3.23,0,0,0,1.6-.42v1.1a2.49,2.49,0,0,1-.72.28A4.34,4.34,0,0,1,449.87,99.27Z" fill="#666"/>
     <path d="M455.13,98.25a3.07,3.07,0,0,0,.92-0.15v1a2.55,2.55,0,0,1-.54.15,3.73,3.73,0,0,1-.68.06A1.63,1.63,0,0,1,453,97.38v-3.2h-0.81V93.62l0.87-.46,0.43-1.26h0.78v1.32H456v1H454.3v3.18a0.89,0.89,0,0,0,.23.67A0.83,0.83,0,0,0,455.13,98.25Z" fill="#666"/>
   </g>
-  <use id="query" width="36" height="36" transform="translate(845.59 78)" xlink:href="#array-vector"/>
+  <use id="query" width="36" height="36" transform="translate(835.59 78)" xlink:href="#array-vector"/>
   <g id="memory">
     <use width="36" height="36" transform="translate(335 12)" xlink:href="#array-vector"/>
     <use width="36" height="36" transform="translate(371 12)" xlink:href="#array-vector"/>
@@ -1355,30 +1356,35 @@ p {text-align: justify; }
     <use width="36" height="36" transform="translate(443 12)" xlink:href="#array-vector"/>
     <use width="36" height="36" transform="translate(479 12)" xlink:href="#array-vector"/>
   </g>
+  <use width="26.87" height="26.87" transform="translate(880.37 82.78)" xlink:href="#pointer"/>
+  <use width="26.87" height="26.87" transform="translate(881.72 346.66)" xlink:href="#pointer"/>
+  <use width="26.87" height="26.87" transform="translate(952.89 477.66)" xlink:href="#pointer"/>
   <g opacity="0.6">
-    <text transform="translate(527.38 33)" font-size="12" font-family="Open Sans">memory</text>
-  </g>
-  <g opacity="0.4">
-    <text transform="translate(528.5 155.77)" font-size="12" font-family="Open Sans" font-style="italic">Blue shows high similarity, <tspan x="0" y="18">pink high dissimilarity.</tspan></text>
-  </g>
-  <g opacity="0.6">
-    <text transform="translate(845.09 328)" font-size="12" font-family="Open Sans">interpolation amount</text>
-  </g>
-  <text transform="translate(845.09 460)" font-size="12" fill="#666" font-family="Open Sans">shift filter</text>
-  <g opacity="0.4">
-    <text transform="translate(825.09 12)" font-size="12" font-family="Open Sans" font-style="italic">RNN controller</text>
-  </g>
-  <g opacity="0.4">
-    <text transform="translate(687.91 12)" font-size="12" font-family="Open Sans" font-style="italic">attention mechanism</text>
+    <text transform="translate(525.41 33)" font-size="13" font-family="Open Sans">memory</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(845.09 64)" font-size="12" font-family="Open Sans">query vector</text>
+    <text transform="translate(528.5 156.63)" font-size="13" font-family="Open Sans" font-style="italic">Blue shows high similarity, <tspan x="0" y="20">pink high dissimilarity.</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(603.71 266)" font-size="12" font-family="Open Sans">attention from previous step</text>
+    <text transform="translate(835.09 328)" font-size="13" font-family="Open Sans">interpolation amount</text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(352.16 728)" font-size="12" font-family="Open Sans">new attention distribution</text>
+    <text transform="translate(835.09 460)" font-size="13" font-family="Open Sans">shift filter</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(825.09 12)" font-size="13" font-family="Open Sans" font-style="italic">RNN controller</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(678.56 12)" font-size="13" font-family="Open Sans" font-style="italic">attention mechanism</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(835.09 64)" font-size="13" font-family="Open Sans">query vector</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(597.03 266)" font-size="13" font-family="Open Sans">attention from previous step</text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(346.09 728)" font-size="13" font-family="Open Sans">new attention distribution</text>
   </g>
   <circle id="query-hover" cx="912.96" cy="95.44" r="87.04" fill="#fff" fill-opacity="0"/>
   <circle id="interpolate-hover" cx="862.96" cy="357.04" r="41.37" fill="#fff" fill-opacity="0"/>
@@ -1390,17 +1396,10 @@ p {text-align: justify; }
 //
 // Data
 //
-var vectorScale = d3.scaleLinear()
-    .domain([0, 1])
-    .range([-14, 14]);
 
-var memoryData = [
-  {x: 0.4, y: 0.2},
-  {x: 0.2, y: 0.2},
-  {x: 0.1, y: 0.9},
-  {x: 0.9, y: 0.9},
-  {x: 0.4, y: 0.3}
-];
+var vectorScale = d3.scaleLinear().domain([0, 1]).range([-14, 14]);
+
+var memoryData = [{ x: 0.4, y: 0.2 }, { x: 0.2, y: 0.2 }, { x: 0.1, y: 0.9 }, { x: 0.9, y: 0.9 }, { x: 0.4, y: 0.3 }];
 var interpolationData = [0.3];
 var shiftData = [0, 0.2, 0.8];
 var previousAttentionData = [0, 0.2, 0, 0.2, 0.6];
@@ -1423,7 +1422,7 @@ var shift = svg.selectAll("#shift use");
 
 // Store positions of vectors
 function cachePositions(selection) {
-  selection.each(function(d) {
+  selection.each(function (d) {
     var bBox = this.getBoundingClientRect();
     d.top = bBox.top - svgBBox.top;
     d.left = bBox.left - svgBBox.left;
@@ -1433,124 +1432,135 @@ function cachePositions(selection) {
 
 // Render new vector lines
 function renderVector(selection) {
-  selection
-      .attr("transform", (d) => {
-        return `translate(${d.left + d.width / 2 - vectorScale(d.x) / 2}, ${d.top + d.width / 2 - vectorScale(d.y) / 2})`
-      })
-      .attr("x2", (d) => vectorScale(d.x))
-      .attr("y2", (d) => vectorScale(d.y))
-      .attr("marker-end", "url(#arrowhead)")
-      .style("stroke", "grey");
+  selection.attr("transform", function (d) {
+    return "translate(" + (d.left + d.width / 2 - vectorScale(d.x) / 2) + ", " + (d.top + d.width / 2 - vectorScale(d.y) / 2) + ")";
+  }).attr("x2", function (d) {
+    return vectorScale(d.x);
+  }).attr("y2", function (d) {
+    return vectorScale(d.y);
+  }).attr("marker-end", "url(#arrowhead)").style("stroke", "grey");
 }
 
 // Memory
 memory.data(memoryData);
 cachePositions(memory);
-var memoryVector = svg.selectAll(".memory-vector")
-      .data(memoryData)
-    .enter().append("line")
-      .attr("class", "memory-vector");
+var memoryVector = svg.selectAll(".memory-vector").data(memoryData).enter().append("line").attr("class", "memory-vector");
 renderVector(memoryVector);
 
-var queryData = [{x: 0.7, y: 0.8}];
+var queryData = [{ x: 0.7, y: 0.8 }];
 query.data(queryData);
 cachePositions(query);
 
-var queryVector = svg.selectAll(".query-vector")
-    .data(queryData)
-  .enter().append("line")
-    .attr("class", "query-vector");
+var queryVector = svg.selectAll(".query-vector").data(queryData).enter().append("line").attr("class", "query-vector");
 
-var clamp = d3.scaleLinear()
-    .clamp(true);
+var clamp = d3.scaleLinear().clamp(true);
 
 function redraw() {
 
   renderVector(queryVector);
 
   // Dot
-  var dotData = memoryData.map(v => 2*(v.x-0.5)*2*(queryData[0].x-0.5)+2*(v.y-0.5)*2*(queryData[0].y-0.5));
-  svg.selectAll("#dot use").data(dotData)
-    .attr("xlink:href", d => d < 0 ? "#array-negative-value" : "#array-positive-value")
-    .style("opacity", d => Math.abs(d));
+  var dotData = memoryData.map(function (v) {
+    return 2 * (v.x - 0.5) * 2 * (queryData[0].x - 0.5) + 2 * (v.y - 0.5) * 2 * (queryData[0].y - 0.5);
+  });
+  svg.selectAll("#dot use").data(dotData).attr("xlink:href", function (d) {
+    return d < 0 ? "#array-negative-value" : "#array-positive-value";
+  }).style("opacity", function (d) {
+    return Math.abs(d);
+  });
 
   // Softmax
   var expDotData = dotData.map(Math.exp);
-  var softmaxData = expDotData.map(x => x/d3.sum(expDotData));
-  svg.selectAll("#softmax use").data(softmaxData)
-    .style("opacity", d => d);
+  var softmaxData = expDotData.map(function (x) {
+    return x / d3.sum(expDotData);
+  });
+  svg.selectAll("#softmax use").data(softmaxData).style("opacity", function (d) {
+    return d;
+  });
 
   // Interpolate
-  svg.selectAll("#previous use").data(previousAttentionData)
-    .style("opacity", d => d);
+  svg.selectAll("#previous use").data(previousAttentionData).style("opacity", function (d) {
+    return d;
+  });
 
-  svg.selectAll("#interpolate-amount").data(interpolationData)
-    .style("opacity", d => d);
+  svg.selectAll("#interpolate-amount").data(interpolationData).style("opacity", function (d) {
+    return d;
+  });
 
-  var interpolateData = previousAttentionData.map((d,i) =>
-      interpolationData*d + (1-interpolationData)*softmaxData[i]);
-  svg.selectAll("#interpolate use").data(interpolateData)
-    .style("opacity", d => d);
+  var interpolateData = previousAttentionData.map(function (d, i) {
+    return interpolationData * d + (1 - interpolationData) * softmaxData[i];
+  });
+  svg.selectAll("#interpolate use").data(interpolateData).style("opacity", function (d) {
+    return d;
+  });
 
   // Convolve
-  shift.data(shiftData)
-    .style("opacity", d => d);
+  shift.data(shiftData).style("opacity", function (d) {
+    return d;
+  });
 
-  var convolveData = dotData.map(x => 0);
-  for (var n in shiftData){
-    for (var i in convolveData){
-      if (i - (1-n) >= 0){
-        convolveData[i-(1-n)] += shiftData[n]*interpolateData[i];
+  var convolveData = dotData.map(function (x) {
+    return 0;
+  });
+  for (var n in shiftData) {
+    for (var i in convolveData) {
+      if (i - (1 - n) >= 0) {
+        convolveData[i - (1 - n)] += shiftData[n] * interpolateData[i];
       }
     }
   }
   // = dotData;
-  svg.selectAll("#convolve use").data(convolveData)
-    .style("opacity", d => d);
+  svg.selectAll("#convolve use").data(convolveData).style("opacity", function (d) {
+    return d;
+  });
 
   // Sharpen
-  var sharpenData = convolveData.map(x => x*x);
-  sharpenData = sharpenData.map(x => x/d3.sum(sharpenData));
-  svg.selectAll("#new-attention use").data(sharpenData)
-    .style("opacity", d => d);
+  var sharpenData = convolveData.map(function (x) {
+    return x * x;
+  });
+  sharpenData = sharpenData.map(function (x) {
+    return x / d3.sum(sharpenData);
+  });
+  svg.selectAll("#new-attention use").data(sharpenData).style("opacity", function (d) {
+    return d;
+  });
 }
 
-svg.select("#query-hover")
-  .on("mousemove", function() {
-    var bbox = svg.select("#query").node().getBoundingClientRect();
-    var x = d3.event.x - bbox.left - bbox.width / 2;
-    var y = d3.event.y - bbox.top - bbox.height / 2;
-    //TODO: this clamping is awkward
-    queryData[0].x = clamp((x + 25) / 50);
-    queryData[0].y = clamp((y + 25) / 50);
-    redraw();
-  });
-svg.select("#interpolate-hover")
-  .on("mousemove", function() {
-    var bbox = svg.select("#interpolate-amount").node().getBoundingClientRect();
-    interpolationData = [Math.min(1, (d3.event.x - bbox.left) / bbox.width)];
-    redraw()
-  })
-  // .on("mouseout", function() {
-  //   interpolationData = [0.3];
-  //   redraw();
-  // });
+svg.select("#query-hover").on("mousemove", function () {
+  var bbox = svg.select("#query").node().getBoundingClientRect();
+  var x = d3.event.clientX - bbox.left - bbox.width / 2;
+  var y = d3.event.clientY - bbox.top - bbox.height / 2;
+  //TODO: this clamping is awkward
+  queryData[0].x = clamp((x + 25) / 50);
+  queryData[0].y = clamp((y + 25) / 50);
+  redraw();
+});
+svg.select("#interpolate-hover").on("mousemove", function () {
+  var bbox = svg.select("#interpolate-amount").node().getBoundingClientRect();
+  interpolationData = [Math.max(0, Math.min(1, (d3.event.clientX - bbox.left) / bbox.width))];
+  redraw();
+});
+// .on("mouseout", function() {
+//   interpolationData = [0.3];
+//   redraw();
+// });
 
-svg.select("#shift-hover")
-  .on("mousemove", function() {
-    //  shiftData = [0, 0.2, 0.8];
-    shiftData = [];
-    shift.each(function() {
-      var bbox = this.getBoundingClientRect()
-      var distance = Math.abs(bbox.left - d3.event.x + bbox.width / 2);
-      shiftData.push(Math.exp(-distance / 25));
-    });
-    shiftData = shiftData.map((d) => d / d3.sum(shiftData));
-    redraw();
+svg.select("#shift-hover").on("mousemove", function () {
+  //  shiftData = [0, 0.2, 0.8];
+  shiftData = [];
+  shift.each(function () {
+    var bbox = this.getBoundingClientRect();
+    var distance = Math.abs(bbox.left - d3.event.clientX + bbox.width / 2);
+    shiftData.push(Math.exp(-distance / 25));
   });
+  shiftData = shiftData.map(function (d) {
+    return d / d3.sum(shiftData);
+  });
+  redraw();
+});
 redraw();
-
-</script></p>
+</script>
+</p>
 <p>This capability to read and write allows NTMs to perform many simple algorithms, previously beyond neural networks. For example, they can learn to store a long sequence in memory, and then loop over it, repeating it back repeatedly. As they do this, we can watch where they read and write, to better understand what they’re doing:</p>
 <figure class="p-right-margin external" style="width: 396px; margin-left: 48px;">
   <img src="assets/NTM-Copy-ReadWrite.svg"></img>
@@ -1561,15 +1571,14 @@ redraw();
 <p>They can also learn to mimic a lookup table, or even learn to sort numbers (although they kind of cheat)! On the other hand, they still can’t do many basic things, like add or multiply numbers.</p>
 <p>Since the original NTM paper, there’s been a number of exciting papers exploring similar directions. The Neural GPU (<a href="http://arxiv.org/pdf/1511.08228.pdf">Kaiser &amp; Sutskever, 2015</a>) overcomes the NTM’s inability to add and multiply numbers.  <a href="http://arxiv.org/pdf/1505.00521.pdf">Zaremba &amp; Sutskever, 2016</a> train NTMs using reinforcement learning instead of the differentiable read/writes used by the original. Neural Random Access Machines (<a href="http://arxiv.org/pdf/1511.06392.pdf">Kurach <em>et al.</em>, 2015</a>) work based on pointers. Some papers have explored differentiable data structures, like stacks and queues (<a href="http://papers.nips.cc/paper/5648-learning-to-transduce-with-unbounded-memory.pdf">Grefenstette <em>et al</em>. 2015</a>; <a href="https://arxiv.org/pdf/1503.01007.pdf">Joulin &amp; Mikolov, 2015</a>). And memory networks (<a href="http://arxiv.org/abs/1410.3916">Weston <em>et al.</em>, 2014</a>; <a href="http://arxiv.org/abs/1506.07285">Kumar <em>et al.</em>, 2015</a>) are another approach to attacking similar problems.</p>
 <p>In some objective sense, many of the tasks these models can perform – such as learning how to add numbers – aren’t that objectively hard. The traditional program synthesis community would eat them for lunch. But neural networks are capable of many other things, and models like the Neural Turing Machine seem to have knocked away a very profound limit on their abilities.</p>
-<p style="font-size: 75%; line-height: 145%;"><b>Code:</b><span style="color: rgba(0, 0, 0, 0.6);"> There are a number of open source implementations of these models. Open source implementations of the Neural Turing Machine include <a href="https://github.com/carpedm20/NTM-tensorflow">Taehoon Kim’s</a> (TensorFlow), <a href="https://github.com/shawntan/neural-turing-machines">Shawn Tan’s</a> (Thenao), <a href="https://github.com/fumin/ntm">Fumin’s</a> (Go), <a href="https://github.com/kaishengtai/torch-ntm">Kai Sheng Tai’s</a> (Torch), and <a href="https://github.com/snipsco/ntm-lasagne">Snip’s</a> (Lasagne). Code for the Neural GPU publication was open sourced and put in the <a href="https://github.com/tensorflow/models/tree/master/neural_gpu">TensorFlow Models repository</a>. Open source implementations of Memory Networks include <a href="https://github.com/facebook/MemNN">Facebook’s</a> (Torch/Matlab), <a href="https://github.com/YerevaNN/Dynamic-memory-networks-in-Theano">YerevaNN’s</a> (Theano), and <a href="https://github.com/carpedm20/MemN2N-tensorflow">Taehoon Kim’s</a> (TensorFlow). </span></p>
-
+<h3 id="code">Code</h3>
+<p>There are a number of open source implementations of these models. Open source implementations of the Neural Turing Machine include <a href="https://github.com/carpedm20/NTM-tensorflow">Taehoon Kim’s</a> (TensorFlow), <a href="https://github.com/shawntan/neural-turing-machines">Shawn Tan’s</a> (Thenao), <a href="https://github.com/fumin/ntm">Fumin’s</a> (Go), <a href="https://github.com/kaishengtai/torch-ntm">Kai Sheng Tai’s</a> (Torch), and <a href="https://github.com/snipsco/ntm-lasagne">Snip’s</a> (Lasagne). Code for the Neural GPU publication was open sourced and put in the <a href="https://github.com/tensorflow/models/tree/master/neural_gpu">TensorFlow Models repository</a>. Open source implementations of Memory Networks include <a href="https://github.com/facebook/MemNN">Facebook’s</a> (Torch/Matlab), <a href="https://github.com/YerevaNN/Dynamic-memory-networks-in-Theano">YerevaNN’s</a> (Theano), and <a href="https://github.com/carpedm20/MemN2N-tensorflow">Taehoon Kim’s</a> (TensorFlow). </span></p></p>
 <hr>
-<h3 id="attentional-interfaces">Attentional Interfaces</h3>
+<h2 id="attentional-interfaces">Attentional Interfaces</h2>
 <p>When I’m translating a sentence, I pay special attention to the word I’m presently translating. When I’m transcribing an audio recording, I listen carefully to the segment I’m actively writing down. And if you ask me to describe the room I’m sitting in, I’ll glance around at the objects I’m describing as I do so.</p>
 <p>Neural networks can achieve this same behavior using <em>attention</em>, focusing on part of a subset of the information they’re given. For example, an RNN can attend over the output of another RNN. At every time step, it focuses on different positions in the other RNN.</p>
 <p>We’d like attention to be differentiable, so that we can learn where to focus. To do this, we use the same trick Neural Turing Machines use: we focus everywhere, just to different extents.</p>
-<!-- Diagram slightly unaligned on right side -->
-<figure class="side-saddle-right w-page">
+<figure class="w-page">
 <svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="252" viewBox="0 0 984 252">
   <defs>
     <symbol id="rnn-bg" data-name="rnn-bg" viewBox="0 0 49.5 49.5">
@@ -1921,7 +1930,7 @@ redraw();
     <use width="24" height="24" transform="translate(759 95.75)" xlink:href="#op-sum"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(167 35.12)" font-size="12" font-family="Open Sans">Network B focuses on different <tspan x="0" y="18">information from network A at </tspan><tspan x="0" y="36">every step.</tspan></text>
+    <text transform="translate(167 35.88)" font-size="13" font-family="Open Sans">Network B focuses on different <tspan x="0" y="20">information from network A at </tspan><tspan x="0" y="40">every step.</tspan></text>
   </g>
   <g id="_Group_8" data-name="&lt;Group&gt;">
     <g opacity="0.1">
@@ -1942,8 +1951,6 @@ redraw();
 </figure>
 
 <p>The attention distribution is usually generated with content-based attention. The attending RNN generates a query describing what it wants to focus on. Each item is dot producted with the query to produce a score, describing how well it matches the query. The scores are fed into a softmax to create the attention distribution.</p>
-<!-- Diagram slightly unaligned on right side -->
-<!-- Add a clearer break on the left side? Alternatively, shift softmax and improve alignment -->
 <figure class="w-page">
 <svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="438" viewBox="0 0 984 438">
   <defs>
@@ -2050,9 +2057,11 @@ redraw();
     </g>
     <use width="49.5" height="49.5" transform="translate(468.25 365.25)" xlink:href="#rnn-a"/>
   </g>
-  <text transform="translate(167.98 25.12)" font-size="12" fill="#666" font-family="Open Sans">The attending RNN generates <tspan x="-0.42" y="18">a query describing what it </tspan><tspan x="-0.84" y="36">wants to focus on</tspan></text>
   <g opacity="0.6">
-    <text transform="translate(562 223.12)" font-size="12" font-family="Open Sans">Each item is dot producted with <tspan x="0" y="18">the query to produce a score, </tspan><tspan x="0" y="36">describing how well it matches </tspan><tspan x="0" y="54">the query. The scores are fed </tspan><tspan x="0" y="72">into a softmax to create the </tspan><tspan x="0" y="90">attention distribution.</tspan></text>
+    <text transform="translate(168.25 25.88)" font-size="13" font-family="Open Sans">The attending RNN generates a <tspan x="-0.53" y="20">query describing what it wants </tspan><tspan x="-1.06" y="40">to focus on</tspan></text>
+  </g>
+  <g opacity="0.6">
+    <text transform="translate(562 223.88)" font-size="13" font-family="Open Sans">Each item is dot producted with the <tspan x="0" y="20">query to produce a score, describing </tspan><tspan x="0" y="40">how well it matches the query. The </tspan><tspan x="0" y="60">scores are fed into a softmax to </tspan><tspan x="0" y="80">create the attention distribution.</tspan></text>
   </g>
   <path d="M201,330H177a10,10,0,0,1-10-10V118a10,10,0,0,1,10-10H529a10,10,0,0,0,10-10V58a10,10,0,0,0-10-10H516.37" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
   <g>
@@ -2257,607 +2266,33 @@ redraw();
 </figure>
 
 <p>One use of attention between RNNs is translation (<a href="https://arxiv.org/pdf/1409.0473.pdf">Bahdanau, <em>et al.</em> 2014</a>). A traditional sequence-to-sequence model has to boil the entire input down into a single vector and then expands it back out. Attention avoids this by allowing the RNN processing the input to pass along information about each word it sees, and then for the RNN generating the output to focus on words as they become relevant.</p>
-<!--
-<figure class="w-page">
-<svg id="images" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="240" viewBox="0 0 984 240">
-  <defs>
-    <symbol id="rnn-bg" data-name="rnn-bg" viewBox="0 0 49.5 49.5">
-      <rect x="0.75" y="0.75" width="48" height="48" rx="6" ry="6" fill="#fff" fill-opacity="0.8" stroke="#666" stroke-width="1.5"/>
-    </symbol>
-    <symbol id="rnn-b" data-name="rnn-b" viewBox="0 0 49.5 49.5">
-      <use id="rnn-bg-3" data-name="rnn-bg" width="49.5" height="49.5" xlink:href="#rnn-bg"/>
-      <path d="M19.83,16.21h4.39a8.29,8.29,0,0,1,4.48.92,3.27,3.27,0,0,1,1.38,2.92,3.38,3.38,0,0,1-.77,2.28,3.72,3.72,0,0,1-2.25,1.16v0.11q3.54,0.6,3.54,3.72a4,4,0,0,1-1.41,3.25,6,6,0,0,1-3.94,1.17H19.83V16.21Zm1.81,6.66h3a4.85,4.85,0,0,0,2.75-.6,2.32,2.32,0,0,0,.84-2,2,2,0,0,0-.94-1.89,5.84,5.84,0,0,0-3-.58H21.64v5.09Zm0,1.53v5.82h3.24a4.62,4.62,0,0,0,2.83-.73,2.69,2.69,0,0,0,1-2.28,2.42,2.42,0,0,0-1-2.13,5.2,5.2,0,0,0-3-.68H21.64Z" fill="#666"/>
-    </symbol>
-    <symbol id="rnn-a" data-name="rnn-a" viewBox="0 0 49.5 49.5">
-      <use id="rnn-bg-48" data-name="rnn-bg" width="49.5" height="49.5" xlink:href="#rnn-bg"/>
-      <path d="M29.77,31.75l-1.93-4.94H21.6l-1.91,4.94H17.86L24,16.14h1.52l6.11,15.61H29.77Zm-2.5-6.57-1.81-4.82q-0.35-.91-0.72-2.24a20.34,20.34,0,0,1-.67,2.24l-1.83,4.82h5Z" fill="#666"/>
-    </symbol>
-  </defs>
-  <title>rnn</title>
-  <g id="_Group_" data-name="&lt;Group&gt;">
-    <rect x="44.82" y="143.56" width="889.21" height="60.16" rx="10" ry="10" fill="#f0f0f5"/>
-    <g opacity="0.1">
-      <rect x="44.82" y="143.56" width="889.21" height="60.16" rx="10" ry="10" fill="none" stroke="#231f20"/>
-    </g>
-  </g>
-  <g id="_Group_2" data-name="&lt;Group&gt;">
-    <rect x="20.86" y="35.56" width="949.14" height="60.16" rx="10" ry="10" fill="#f0f0f5"/>
-    <g opacity="0.1">
-      <rect x="20.86" y="35.56" width="949.14" height="60.16" rx="10" ry="10" fill="none" stroke="#231f20"/>
-    </g>
-  </g>
-  <g>
-    <line x1="66.56" y1="64.53" x2="90.43" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M95.87,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,95.87,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="50.86" y1="48" x2="50.86" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M50.86,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,50.86,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="114.72" y1="48" x2="114.72" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M114.72,24A27.2,27.2,0,0,0,119,31.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,114.72,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="178.57" y1="48" x2="178.57" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M178.57,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,178.57,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="242.43" y1="48" x2="242.43" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M242.43,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,242.43,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="306.29" y1="48" x2="306.29" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M306.29,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55L302,31.69A27.18,27.18,0,0,0,306.29,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="370.14" y1="48" x2="370.14" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M370.14,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,370.14,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="434" y1="48" x2="434" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M434,24a27.2,27.2,0,0,0,4.28,7.69L434,30.14l-4.28,1.55A27.18,27.18,0,0,0,434,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="497.86" y1="48" x2="497.86" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M497.86,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,497.86,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="561.72" y1="48" x2="561.72" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M561.72,24A27.2,27.2,0,0,0,566,31.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,561.72,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="625.57" y1="48" x2="625.57" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M625.57,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,625.57,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="689.43" y1="48" x2="689.43" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M689.43,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,689.43,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="753.29" y1="48" x2="753.29" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M753.29,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55L749,31.69A27.18,27.18,0,0,0,753.29,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="817.14" y1="48" x2="817.14" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M817.14,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,817.14,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="881" y1="48" x2="881" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M881,24a27.2,27.2,0,0,0,4.28,7.69L881,30.14l-4.28,1.55A27.18,27.18,0,0,0,881,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="944.86" y1="48" x2="944.86" y2="29.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M944.86,24a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,944.86,24Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="72.86" y1="216" x2="72.86" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M72.86,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,72.86,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="136.72" y1="216" x2="136.72" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M136.72,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,136.72,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="200.57" y1="216" x2="200.57" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M200.57,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,200.57,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="264.43" y1="216" x2="264.43" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M264.43,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,264.43,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="328.29" y1="216" x2="328.29" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M328.29,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55L324,199.69A27.18,27.18,0,0,0,328.29,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="392.14" y1="216" x2="392.14" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M392.14,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,392.14,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="456" y1="216" x2="456" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M456,192a27.2,27.2,0,0,0,4.28,7.69L456,198.14l-4.28,1.55A27.18,27.18,0,0,0,456,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="519.86" y1="216" x2="519.86" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M519.86,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,519.86,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="583.72" y1="216" x2="583.72" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M583.72,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,583.72,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="647.57" y1="216" x2="647.57" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M647.57,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,647.57,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="711.43" y1="216" x2="711.43" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M711.43,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.17,27.17,0,0,0,711.43,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="775.29" y1="216" x2="775.29" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M775.29,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55L771,199.69A27.18,27.18,0,0,0,775.29,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="839.14" y1="216" x2="839.14" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M839.14,192a27.2,27.2,0,0,0,4.28,7.69l-4.28-1.55-4.28,1.55A27.18,27.18,0,0,0,839.14,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="903" y1="216" x2="903" y2="197.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M903,192a27.2,27.2,0,0,0,4.28,7.69L903,198.14l-4.28,1.55A27.18,27.18,0,0,0,903,192Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="130.77" y1="64.53" x2="153.98" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M159.41,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,159.41,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="194.32" y1="64.53" x2="218.19" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M223.62,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,223.62,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="258.19" y1="64.53" x2="282.06" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M287.49,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,287.49,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="322.4" y1="64.53" x2="345.61" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M351,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,351,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="385.94" y1="64.53" x2="409.81" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M415.25,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,415.25,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="449.82" y1="64.53" x2="473.69" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M479.12,64.53a27.2,27.2,0,0,0-7.69,4.28L473,64.53l-1.55-4.28A27.17,27.17,0,0,0,479.12,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="514.03" y1="64.53" x2="537.23" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M542.67,64.53A27.2,27.2,0,0,0,535,68.81l1.55-4.28L535,60.25A27.18,27.18,0,0,0,542.67,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="577.57" y1="64.53" x2="601.44" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M606.87,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,606.87,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="641.45" y1="64.53" x2="665.32" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M670.75,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,670.75,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="705.66" y1="64.53" x2="728.86" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M734.29,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,734.29,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="769.2" y1="64.53" x2="793.07" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M798.5,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.17,27.17,0,0,0,798.5,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="833.08" y1="64.53" x2="856.95" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M862.38,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,862.38,64.53Z" fill="#666"/>
-  </g>
-  <g>
-    <line x1="897.28" y1="64.53" x2="920.49" y2="64.53" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path d="M925.92,64.53a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,925.92,64.53Z" fill="#666"/>
-  </g>
-  <g id="_Group_3" data-name="&lt;Group&gt;">
-    <g opacity="0.1">
-      <rect x="34.32" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="34.32" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="34.32" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="34.32" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M47,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78H47V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35A1.36,1.36,0,0,0,52,62.27a3.88,3.88,0,0,0-2-.38H48.21v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45H48.21Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(32.82 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="98.2" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="98.2" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="98.2" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="98.2" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M110.88,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(96.7 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="162.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="162.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="162.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="162.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M174.76,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47A2.65,2.65,0,0,1,181,70.4a4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38H176v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45H176Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(160.58 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g id="_Group_4" data-name="&lt;Group&gt;">
-    <g opacity="0.1">
-      <rect x="225.95" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="225.95" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="225.95" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="225.95" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M238.64,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87H242a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(224.45 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="289.83" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="289.83" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="289.83" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="289.83" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M302.51,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(288.33 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="353.7" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="353.7" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="353.7" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="353.7" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M366.39,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(352.2 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g id="_Group_5" data-name="&lt;Group&gt;">
-    <g opacity="0.1">
-      <rect x="417.58" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="417.58" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="417.58" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="417.58" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M430.26,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(416.08 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="481.46" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="481.46" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="481.46" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="481.46" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M494.14,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(479.96 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="545.33" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="545.33" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="545.33" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="545.33" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M558,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78H558V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(543.83 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g id="_Group_6" data-name="&lt;Group&gt;">
-    <g opacity="0.1">
-      <rect x="609.21" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="609.21" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="609.21" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="609.21" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M621.89,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(607.71 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="673.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="673.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="673.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="673.08" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M685.77,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47A2.65,2.65,0,0,1,692,70.4a4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38H687v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45H687Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(671.59 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="736.96" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="736.96" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="736.96" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="736.96" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M749.64,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87H753a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(735.46 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g id="_Group_7" data-name="&lt;Group&gt;">
-    <g opacity="0.1">
-      <rect x="800.84" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="800.84" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="800.84" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="800.84" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M813.52,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(799.34 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="864.71" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="864.71" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="864.71" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="864.71" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M877.4,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38H878.6v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45H878.6Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(863.21 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g opacity="0.1">
-      <rect x="928.59" y="50.57" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-      <rect x="928.59" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="928.59" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <rect x="928.59" y="50.57" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-      <path d="M941.27,60.85h2.92a5.51,5.51,0,0,1,3,.61,2.17,2.17,0,0,1,.92,1.94,2.25,2.25,0,0,1-.51,1.52,2.47,2.47,0,0,1-1.49.77v0.07q2.35,0.4,2.35,2.47a2.65,2.65,0,0,1-.94,2.16,4,4,0,0,1-2.62.78h-3.6V60.85Zm1.2,4.42h2a3.22,3.22,0,0,0,1.83-.4,1.54,1.54,0,0,0,.56-1.35,1.36,1.36,0,0,0-.62-1.25,3.88,3.88,0,0,0-2-.38h-1.77v3.38Zm0,1v3.87h2.16a3.07,3.07,0,0,0,1.88-.48,1.79,1.79,0,0,0,.63-1.52,1.61,1.61,0,0,0-.65-1.41,3.46,3.46,0,0,0-2-.45h-2.06Z"/>
-    </g>
-    <use width="49.5" height="49.5" transform="translate(927.09 48.07) scale(0.66)" xlink:href="#rnn-b"/>
-  </g>
-  <g>
-    <g>
-      <line x1="89.99" y1="172.09" x2="113.86" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M119.3,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,119.3,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="153.87" y1="172.09" x2="177.75" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M183.18,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.17,27.17,0,0,0,183.18,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="217.76" y1="172.09" x2="241.63" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M247.06,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,247.06,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="281.64" y1="172.09" x2="305.51" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M310.94,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,310.94,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="345.52" y1="172.09" x2="369.39" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M374.82,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.17,27.17,0,0,0,374.82,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="409.4" y1="172.09" x2="433.27" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M438.7,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28L431,167.81A27.18,27.18,0,0,0,438.7,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="473.28" y1="172.09" x2="497.15" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M502.58,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,502.58,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="537.16" y1="172.09" x2="561.03" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M566.46,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.17,27.17,0,0,0,566.46,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="601.04" y1="172.09" x2="624.91" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M630.34,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,630.34,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="664.92" y1="172.09" x2="688.79" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M694.22,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,694.22,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="728.8" y1="172.09" x2="752.67" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M758.11,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.17,27.17,0,0,0,758.11,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="792.68" y1="172.09" x2="816.56" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M822,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,822,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <line x1="856.56" y1="172.09" x2="880.44" y2="172.09" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
-      <path d="M885.87,172.09a27.2,27.2,0,0,0-7.69,4.28l1.55-4.28-1.55-4.28A27.18,27.18,0,0,0,885.87,172.09Z" fill="#666"/>
-    </g>
-    <g>
-      <g opacity="0.1">
-        <rect x="57.75" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="57.75" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M77,178.74l-1.29-3.29H71.61l-1.27,3.29H69.12l4.08-10.37h1l4.06,10.37H77Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49L72,174.38h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(56.25 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g>
-      <g opacity="0.1">
-        <rect x="121.63" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="121.63" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M140.92,178.74l-1.29-3.29h-4.14l-1.27,3.29H133l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(120.13 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_8" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="185.51" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="185.51" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M204.8,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22L201,168.37h1L206,178.74H204.8Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(184.01 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_9" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="249.39" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="249.39" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M268.68,178.74l-1.29-3.29h-4.14L262,178.74h-1.22l4.08-10.37h1l4.06,10.37h-1.24ZM267,174.38l-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2H267Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(247.9 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g>
-      <g opacity="0.1">
-        <rect x="313.28" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="313.28" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M332.56,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(311.78 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_10" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="377.16" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="377.16" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M396.44,178.74l-1.29-3.29H391l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(375.66 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_11" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="441.04" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="441.04" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M460.33,178.74L459,175.46H454.9l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(439.54 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g>
-      <g opacity="0.1">
-        <rect x="504.92" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="504.92" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M524.21,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(503.42 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_12" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="568.8" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="568.8" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M588.09,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(567.3 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_13" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="632.68" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="632.68" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M652,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37H652Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(631.18 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g>
-      <g opacity="0.1">
-        <rect x="696.56" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="696.56" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M715.85,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22L712,168.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(695.06 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_14" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="760.44" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="760.44" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M779.73,178.74l-1.29-3.29H774.3L773,178.74h-1.22l4.08-10.37h1L781,178.74h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(758.94 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g id="_Group_15" data-name="&lt;Group&gt;">
-      <g opacity="0.1">
-        <rect x="824.32" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="824.32" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M843.61,178.74l-1.29-3.29h-4.14l-1.27,3.29H835.7l4.08-10.37h1l4.06,10.37h-1.24ZM842,174.38l-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2H842Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(822.82 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-    <g>
-      <g opacity="0.1">
-        <rect x="888.2" y="158.14" width="31.91" height="31.91" rx="6" ry="6" opacity="0.8"/>
-        <rect x="888.2" y="158.14" width="31.91" height="31.91" rx="6" ry="6" fill="none" stroke="#000" stroke-width="1.5"/>
-        <path d="M907.49,178.74l-1.29-3.29h-4.14l-1.27,3.29h-1.22l4.08-10.37h1l4.06,10.37h-1.24Zm-1.66-4.37-1.2-3.2q-0.23-.61-0.48-1.49a13.52,13.52,0,0,1-.45,1.49l-1.22,3.2h3.34Z"/>
-      </g>
-      <use width="49.5" height="49.5" transform="translate(886.71 155.64) scale(0.66)" xlink:href="#rnn-a"/>
-    </g>
-  </g>
-  <text transform="translate(62.25 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">the</text>
-  <text transform="translate(107.27 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">a<tspan x="5.78" y="0">g</tspan><tspan x="12.42" y="0">r</tspan><tspan x="16.22" y="0">eeme</tspan><tspan x="44.27" y="0">n</tspan><tspan x="50.88" y="0">t</tspan></text>
-  <text transform="translate(192.19 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">on</text>
-  <text transform="translate(254.61 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">the</text>
-  <text transform="translate(303 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">E<tspan x="5.82" y="0">u</tspan><tspan x="12.43" y="0">r</tspan><tspan x="16.24" y="0">opean</tspan></text>
-  <text transform="translate(366.58 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">E<tspan x="5.86" y="0">c</tspan><tspan x="11.16" y="0">onomic</tspan></text>
-  <text transform="translate(443.84 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">A<tspan x="7.31" y="0">r</tspan><tspan x="11.11" y="0">ea</tspan></text>
-  <text transform="translate(509.75 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">w<tspan x="8.78" y="0">as</tspan></text>
-  <text transform="translate(566.71 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">si<tspan x="7.56" y="0">g</tspan><tspan x="14.2" y="0">ned</tspan></text>
-  <text transform="translate(642.91 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">in</text>
-  <text transform="translate(693.84 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">A<tspan x="7.2" y="0">ugust</tspan></text>
-  <text transform="translate(804.2 18) scale(0.91 1)" opacity="0.6" font-size="13.23" font-family="Myriad Pro">1992</text>
-  <text transform="translate(763.57 228.89) scale(0.91 1)" opacity="0.6" font-size="13.23" font-family="Myriad Pro">1992</text>
-  <text transform="translate(838.76 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">.</text>
-  <text transform="translate(887.25 227.86)" opacity="0.6" font-size="12" font-family="Myriad Pro">&lt;end&gt;</text>
-  <text transform="translate(878.86 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">.</text>
-  <text transform="translate(926.82 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">&lt;end&gt;</text>
-  <line x1="70.85" y1="157.06" x2="47.49" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="133.01" y1="157.06" x2="49.46" y2="80.72" fill="none" stroke="#7b56af" stroke-width="1.5" opacity="0.15"/>
-  <line x1="134" y1="157.06" x2="110.65" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="201.76" y1="157.06" x2="178.41" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="262.94" y1="157.06" x2="239.59" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="329.39" y1="157.06" x2="435.31" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="393.86" y1="157.06" x2="370.5" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="329.06" y1="157.06" x2="370.5" y2="80.72" fill="none" stroke="#7b56af" stroke-width="1.5" opacity="0.1"/>
-  <line x1="522.14" y1="157.06" x2="498.79" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="586.61" y1="157.06" x2="563.26" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2" opacity="0.7"/>
-  <line x1="584.97" y1="157.06" x2="500.43" y2="80.72" fill="none" stroke="#7b56af" stroke-width="1.5" opacity="0.15"/>
-  <line x1="455.37" y1="157.06" x2="306.69" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="397.15" y1="157.06" x2="306.69" y2="80.72" fill="none" stroke="#7b56af" stroke-width="1.5" opacity="0.1"/>
-  <line x1="456.36" y1="157.06" x2="241.56" y2="80.72" fill="none" stroke="#7b56af" stroke-width="1.5" opacity="0.1"/>
-  <line x1="907" y1="157.06" x2="944.82" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="841.87" y1="157.06" x2="879.7" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="780.03" y1="157.06" x2="817.86" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="718.19" y1="157.06" x2="756.02" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="526.09" y1="157.06" x2="563.92" y2="80.72" fill="none" stroke="#7b56af" stroke-width="1.8" opacity="0.5"/>
-  <line x1="587.93" y1="157.06" x2="625.76" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <line x1="652.4" y1="157.06" x2="690.23" y2="80.72" fill="none" stroke="#7b56af" stroke-width="2"/>
-  <text transform="translate(50.83 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">l<tspan x="2.9" y="0" letter-spacing="-1">’</tspan></text>
-  <text transform="translate(100.2 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">a<tspan x="5.78" y="0">cc</tspan><tspan x="16.39" y="0">o</tspan><tspan x="22.98" y="0">r</tspan><tspan x="26.78" y="0">d</tspan></text>
-  <text transform="translate(172.93 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">sur</text>
-  <text transform="translate(239.85 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">la</text>
-  <text transform="translate(295.6 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">z<tspan x="5.05" y="0">one</tspan></text>
-  <text transform="translate(338.99 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">é<tspan x="6.01" y="0">c</tspan><tspan x="11.32" y="0">onomique</tspan></text>
-  <text transform="translate(417.4 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">eu<tspan x="12.62" y="0">r</tspan><tspan x="16.43" y="0">opéenne</tspan></text>
-  <text transform="translate(495.65 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">a</text>
-  <text transform="translate(554.17 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">é<tspan x="6.01" y="0">t</tspan><tspan x="9.91" y="0">é</tspan></text>
-  <text transform="translate(612.29 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">si<tspan x="7.56" y="0">g</tspan><tspan x="14.2" y="0">né</tspan></text>
-  <text transform="translate(682.98 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">en</text>
-  <text transform="translate(741.44 18.31)" opacity="0.6" font-size="12" font-family="Myriad Pro">août</text>
-  <line x1="584.64" y1="157.06" x2="49.46" y2="80.72" fill="none" stroke="#7b56af" opacity="0.05"/>
-  <line x1="880.35" y1="77.72" x2="522.47" y2="154.72" fill="none" stroke="#7b56af" opacity="0.07"/>
-  <line x1="878.71" y1="77.72" x2="585.63" y2="153.72" fill="none" stroke="#7b56af" opacity="0.07"/>
-  <line x1="880.68" y1="77.72" x2="653.72" y2="153.72" fill="none" stroke="#7b56af" opacity="0.03"/>
-  <line x1="905.35" y1="157.06" x2="177.09" y2="80.72" fill="none" stroke="#7b56af" opacity="0.05"/>
-</svg>
-  <figcaption>Diagram derived from Fig. 3 of [Bahdanau, *et al.* 2014]</figcaption>
-</figure>
-
--->
 <p>
 <figure id="attentional-ex2" class="w-page">
-  <div id="attentional-ex2-data" style="display: none;">0.5,0.14,0.01,0,0,0,0.02,0.02,0.13,0.04,0.02,0.02,0.01,0.03
-0.02,0.89,0,0,0,0,0.03,0,0.02,0,0,0,0,0
-0.03,0.06,0.56,0.01,0.02,0.01,0.03,0.06,0.02,0.01,0.04,0,0,0.07
-0,0,0,0.61,0.03,0.07,0.27,0,0,0,0,0,0,0
-0,0,0,0.02,0.01,0.25,0.71,0,0,0,0,0,0,0
-0,0,0,0,0.2,0.76,0.02,0,0,0,0,0,0,0
-0,0,0,0,0.97,0.02,0,0,0,0,0,0,0,0
-0,0,0,0,0.05,0.04,0.02,0.6,0.23,0,0,0,0,0
-0,0,0,0,0,0,0,0.4,0.52,0.03,0,0,0,0
-0,0.06,0,0,0,0,0,0,0.91,0,0,0,0,0
-0,0,0,0,0,0,0.01,0.03,0.06,0.67,0.13,0.02,0,0.01
-0,0,0,0,0,0,0,0,0,0,0.96,0.02,0,0
-0,0,0,0,0,0,0,0,0,0,0,1,0,0
-0.05,0.01,0.02,0,0,0.02,0.04,0.12,0.1,0.16,0.02,0.02,0.31,0.04
-0.05,0,0,0,0,0,0,0,0,0.02,0.06,0.03,0.1,0.67</div>
+  <div id="attentional-ex2-data" style="display: none;">0.50, 0.02, 0.04, 0.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0.01, 0.00, 0.00, 0.00, 0.05, 0.05
+0.14, 0.89, 0.07, 0.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0.06, 0.00, 0.00, 0.00, 0.02, 0.00
+0.02, 0.00, 0.56, 0.00, 0.00, 0.00, 0.00, 0.01, 0.00, 0.00, 0.00, 0.00, 0.00, 0.02, 0.00
+0.00, 0.00, 0.01, 0.61, 0.02, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00
+0.00, 0.00, 0.02, 0.03, 0.01, 0.21, 0.97, 0.05, 0.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0.00
+0.00, 0.00, 0.02, 0.07, 0.25, 0.76, 0.02, 0.04, 0.00, 0.00, 0.00, 0.00, 0.00, 0.02, 0.00
+0.02, 0.04, 0.03, 0.27, 0.71, 0.02, 0.00, 0.02, 0.00, 0.00, 0.02, 0.00, 0.00, 0.05, 0.01
+0.02, 0.00, 0.07, 0.00, 0.00, 0.00, 0.00, 0.60, 0.40, 0.01, 0.04, 0.00, 0.00, 0.13, 0.01
+0.13, 0.02, 0.02, 0.00, 0.01, 0.00, 0.00, 0.23, 0.52, 0.91, 0.07, 0.00, 0.00, 0.10, 0.00
+0.04, 0.00, 0.01, 0.00, 0.00, 0.00, 0.00, 0.01, 0.03, 0.00, 0.67, 0.00, 0.00, 0.16, 0.02
+0.02, 0.00, 0.04, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.14, 0.96, 0.00, 0.02, 0.07
+0.02, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.02, 0.02, 1.00, 0.02, 0.03
+0.02, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0.00, 0.01, 0.00, 0.00, 0.32, 0.11
+0.04, 0.00, 0.08, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0.00, 0.00, 0.04, 0.67
+</div>
   <svg>
     <defs>
       <marker id="edgeArrowhead" viewBox="0 -5 10 10" markerWidth="6" markerHeight="10" orient="auto" refX="5" refY="0">
         <path d="M0,-5L5,0L0,5" fill="none" stroke="#666"/>
       </marker>
+      <marker id="edgeArrowheadLeft" viewBox="0 -5 10 10" markerWidth="6" markerHeight="10" orient="auto" refX="0" refY="0">
+        <path d="M5,-5L0,0L5,5" fill="none" stroke="#666"/>
+      </marker>
     </defs>
-    <g class="labels">
+    <g class="labels" style="display: none;">
       <text transform="translate(0, 20)">output text</text>
       <text transform="translate(0, 65)">network B</text>
       <text transform="translate(0, 185)">network A</text>
@@ -2874,7 +2309,7 @@ redraw();
   margin-bottom: 24px;
 }
 #attentional-ex2 figcaption {
-  text-align: left;
+  text-align: center;
 }
 #attentional-ex2 svg .labels {
   font-size: 12px;
@@ -2902,9 +2337,8 @@ redraw();
   alignment-baseline: middle;
 }
 #attentional-ex2 .cell text.label {
-  font-style: italic;
   font-size: 13px;
-  fill-opacity: 0.9;
+  /*fill-opacity: 0.9;*/
   text-anchor: middle;
   alignment-baseline: middle;
 }
@@ -2976,21 +2410,15 @@ var labelsB = [
 var data = d3.csvParseRows(d3.select("#attentional-ex2-data").text());
 
 var linkData = [];
-data.forEach(function(b, bi) {
-  var bLinks = [];
-  b.forEach(function(a, ai) {
-    bLinks.push({
+data.forEach(function(a, ai) {
+  a.forEach(function(b, bi) {
+    linkData.push({
       ai: ai,
       bi: bi,
-      v: data[bi][ai]
+      v: data[ai][bi]
     });
   });
-  linkData.push({
-    bi: bi,
-    links: bLinks
-  });
 });
-
 
 var nodeMargin = 10;
 var networkMargin = 120;
@@ -2998,7 +2426,7 @@ var networkMargin = 120;
 var html = d3.select("#attentional-ex2");
 var outerWidth = html.node().getBoundingClientRect().width;
 var outerHeight = html.node().getBoundingClientRect().height;
-var margin = {top: 36, right: nodeMargin + 2, bottom: 24, left: nodeMargin + 80};
+var margin = {top: 36, right: nodeMargin, bottom: 24, left: nodeMargin};
 var width = outerWidth - margin.left - margin.right;
 var height = outerHeight - margin.top - margin.bottom;
 
@@ -3022,6 +2450,9 @@ var link = function(d) {
       + " " + (xa(d.ai) + nodeSizeA / 2) + "," + (networkMargin + nodeMargin);
 };
 
+html.select("svg .labels")
+    .attr("transform", "translate(" + (width + nodeMargin * 3) + ", 0)");
+
 var svg = html.select("svg")
     .attr("width", outerWidth)
     .attr("height", outerHeight)
@@ -3042,7 +2473,24 @@ var cellA = networkA.selectAll(".cell")
     .data(labelsA)
   .enter().append("g")
     .attr("class", "cell")
-    .attr("transform", function(d, i) { return "translate(" + xa(i) + ", " + nodeMargin + ")"; });
+    .attr("transform", function(d, i) { return "translate(" + xa(i) + ", " + nodeMargin + ")"; })
+    .on("mouseover", function(d, i) {
+      link.style("display", function(ld) {
+        return ld.ai === i ? "" : "none";
+      });
+    })
+    .on("mouseout", function() { link.style("display", ""); });
+
+    // var hoverA = svg.selectAll(".hover-a")
+    //     .data(labelsA)
+    //   .enter().append("rect")
+    //     .attr("class", "hover-a")
+    //     .style("opacity", 0)
+    //     .attr("transform", function(d, i) { return "translate(" + (xa(i) - xa.step() / 4) + ", " + (networkMargin / 2 + nodeSizeB) + ")"; })
+    //     .attr("width", xa.step())
+    //     .attr("height", 1.5 * (nodeSizeA + nodeMargin * 2))
+    //
+    //
 
 cellA.append("rect")
     .attr("class", "shadow")
@@ -3061,8 +2509,9 @@ cellA.append("rect")
 
 cellA.append("line")
     .attr("class", "arrow")
+    .attr("marker-start", "url(#edgeArrowheadLeft)")
     .attr("marker-end", "url(#edgeArrowhead)")
-    .attr("x1", nodeSizeA)
+    .attr("x1", nodeSizeA + 8)
     .attr("x2", nodeSizeA + nodeMargin + 20)
     .attr("y1", nodeSizeA / 2)
     .attr("y2", nodeSizeA / 2);
@@ -3104,7 +2553,13 @@ var cellB = networkB.selectAll(".cell")
     .data(labelsB)
   .enter().append("g")
     .attr("class", "cell")
-    .attr("transform", function(d, i) { return "translate(" + xb(i) + "," + nodeMargin + ")"; });
+    .attr("transform", function(d, i) { return "translate(" + xb(i) + "," + nodeMargin + ")"; })
+    .on("mouseover", function(d, i) {
+      link.style("display", function(ld) {
+        return ld.bi === i ? "" : "none";
+      });
+    })
+    .on("mouseout", function() { link.style("display", ""); });
 
 cellB.append("rect")
     .attr("class", "shadow")
@@ -3151,44 +2606,30 @@ cellB.append("text")
 //
 // Links
 //
-
-var linkGroup = svg.selectAll(".link-group")
-    .data(linkData)
-  .enter().append("g")
-    .attr("class", "link-group")
-    .on("mouseover", function(d) {
-      linkGroup.style("opacity", 0);
-      d3.select(this).style("opacity", 1)
-    }).on("mouseout", function() {
-      linkGroup.style("opacity", 1);
-    });
-
-linkGroup.append("rect")
-    .style("opacity", 0)
-    .attr("width", xb.step())
-    .attr("height", height)
-    .attr("x", function(d) { return xb(d.bi) - xb.bandwidth() / 2; });
-
-linkGroup.append("rect")
-    .attr("class", "node-highlight")
-    .attr("x", function(d) { return xb(d.bi); })
-    .attr("y", nodeMargin)
-    .attr("width", nodeSizeB)
-    .attr("height", nodeSizeB)
-    .attr("rx", 4)
-    .attr("ry", 4);
-
+var linkGroup = svg.append("g").attr("class", ".link-group")
 
 var link = linkGroup.selectAll(".link")
-    .data(function(d) { return d.links; })
+    .data(linkData)
   .enter().append("path")
     .attr("class", "link")
     .attr("d", link)
     .style("opacity", function(d) { return d.v; });
+// 
+//
+//
+// var hoverB = svg.selectAll(".hover-b")
+//     .data(labelsB)
+//   .enter().append("rect")
+//     .attr("class", "hover-b")
+//     .style("opacity", 0)
+//     .attr("transform", function(d, i) { return "translate(" + (xb(i) - xb.step() / 4) + ", 0)"; })
+//     .attr("width", xb.step())
+//     .attr("height", networkMargin / 2 + nodeSizeB)
 
-})();
-</script></p>
-<p>This kind of attention between RNNs has a number of other applications. It can be used in voice recognition (<a href="https://arxiv.org/pdf/1508.01211.pdf">Chan, <em>et al.</em> 2015</a>), allowing one RNN process the audio and then have another RNN skim over it, focusing on relevant parts as it generates a transcript. This kind of attention can also be use to parse text (<a href="https://arxiv.org/pdf/1412.7449.pdf">Vinyals, <em>et al.</em>, 2014</a>), allowing the model to glance at a sentence as it generates the parse tree, and for conversational modeling (<a href="http://arxiv.org/pdf/1506.05869.pdf">Vinyals &amp; Le, 2015</a>), allowing the model to focus on previous parts of the conversation as it generates its response.</p>
+
+})();</script>
+</p>
+<p>This kind of attention between RNNs has a number of other applications. It can be used in voice recognition (<a href="https://arxiv.org/pdf/1508.01211.pdf">Chan, <em>et al.</em> 2015</a>), allowing one RNN process the audio and then have another RNN skim over it, focusing on relevant parts as it generates a transcript.</p>
 <p>
 <figure id="attentional-ex3" class="w-page">
   <svg>
@@ -3199,39 +2640,45 @@ var link = linkGroup.selectAll(".link")
       <text transform="translate(0, 250)">input audio</text>
     </g>
   </svg>
-  <div id="attentional-ex3-data" style="display: none;">0,0,0,0,0,0.09,0.78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0.02,0.01,0.02,0.01,0.01,0.11,0.32,0.04,0.01,0.01,0.01,0.01,0,0,0,0,0,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0.02,0
-0.01,0,0,0,0,0,0.04,0.61,0.05,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0.02,0
-0,0,0,0,0,0,0.01,0.36,0.2,0.03,0,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.02,0
-0,0,0,0,0,0,0.01,0.78,0.06,0.02,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0.01,0,0,0,0,0,0,0.07,0.74,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0
-0,0,0,0,0,0,0,0,0.31,0.46,0,0.01,0.01,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0.98,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0.02,0.96,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0.98,0.01,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0.28,0.39,0.04,0.02,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0.02,0.02,0.01,0.49,0.07,0.1,0,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0.01,0.02,0.61,0.09,0.04,0,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0.01,0,0,0,0,0,0,0,0.01,0.01,0,0.3,0.17,0.13,0,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0.02,0.96,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0.02,0.89,0.03,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0.87,0.05,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0.54,0.09,0.11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0.02,0.13,0.59,0.04,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0.01,0.01,0.31,0.03,0.41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0.13,0.02,0.66,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0.01,0.01,0.94,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0.01,0.02,0.72,0.04,0,0.04,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0.76,0.01,0.01,0.09,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.02,0.77,0,0,0.08,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.45,0.02,0,0.1,0.13,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.66,0.13,0,0,0.02,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.98,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.97,0.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0,0.01,0.9,0.03,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,0,0.01,0.96,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.19,0.6,0.02,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.18,0.59,0.02,0,0,0,0,0,0,0,0,0,0,0,0,0</div>
+  <div id="attentional-ex3-data" style="display: none;">0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.09, 0.11, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.78, 0.33, 0.04, 0.02, 0.02, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.05, 0.61, 0.37, 0.78, 0.07, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.05, 0.21, 0.07, 0.74, 0.31, 0.00, 0.01, 0.01, 0.01, 0.02, 0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.04, 0.02, 0.02, 0.47, 0.98, 0.02, 0.01, 0.01, 0.02, 0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.96, 0.98, 0.28, 0.02, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.02, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.40, 0.49, 0.61, 0.30, 0.02, 0.02, 0.01, 0.01, 0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.05, 0.07, 0.09, 0.18, 0.96, 0.89, 0.87, 0.54, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02, 0.10, 0.05, 0.13, 0.01, 0.03, 0.05, 0.10, 0.14, 0.32, 0.13, 0.01, 0.02, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.12, 0.60, 0.04, 0.03, 0.02, 0.02, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.05, 0.41, 0.66, 0.02, 0.02, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.94, 0.72, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.04, 0.76, 0.02, 0.01, 0.01, 0.01, 0.01, 0.02, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.77, 0.45, 0.66, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.04, 0.01, 0.00, 0.02, 0.13, 0.98, 0.97, 0.02, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.09, 0.00, 0.01, 0.01, 0.01, 0.02, 0.90, 0.02, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.08, 0.10, 0.01, 0.01, 0.01, 0.03, 0.96, 0.19, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.13, 0.02, 0.01, 0.01, 0.01, 0.01, 0.60, 0.18
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02, 0.60
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.02, 0.02, 0.02, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.00, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+</div>
   <figcaption>Figure derived from <a href="https://arxiv.org/pdf/1508.01211.pdf">Chan, <i>et al.</i> 2015</a></figcaption>
 </figure>
 
@@ -3246,7 +2693,7 @@ var link = linkGroup.selectAll(".link")
   fill-opacity: 0.5;
 }
 #attentional-ex3 figcaption {
-  text-align: left;
+  text-align: center;
 }
 #attentional-ex3 .background {
   fill: rgb(240, 240, 245);
@@ -3275,9 +2722,8 @@ var link = linkGroup.selectAll(".link")
   alignment-baseline: middle;
 }
 #attentional-ex3 .cell text.label {
-  font-style: italic;
-  font-size: 16px;
-  fill-opacity: 0.6;
+  font-size: 15px;
+  /*fill-opacity: 0.8;*/
   text-anchor: middle;
   alignment-baseline: middle;
 }
@@ -3320,21 +2766,16 @@ var link = linkGroup.selectAll(".link")
 
 var data = d3.csvParseRows(d3.select("#attentional-ex3-data").text());
 var labelsB = ["h","o","w","_","m","u","c","h","_","w","o","u","l","d","_","a","_","w","o","o","d","c","h","u","c","k","_","c","h","u","c","k","<end>"];
-var labelsA = d3.range(data[0].length);
+var labelsA = d3.range(data.length);
 
 var linkData = [];
-data.forEach(function(b, bi) {
-  var bLinks = [];
-  b.forEach(function(a, ai) {
-    bLinks.push({
+data.forEach(function(a, ai) {
+  a.forEach(function(b, bi) {
+    linkData.push({
       ai: ai,
       bi: bi,
-      v: data[bi][ai]
+      v: data[ai][bi]
     });
-  });
-  linkData.push({
-    bi: bi,
-    links: bLinks
   });
 });
 
@@ -3345,7 +2786,7 @@ var audioHeight = 60;
 var html = d3.select("#attentional-ex3");
 var outerWidth = html.node().getBoundingClientRect().width;
 var outerHeight = html.node().getBoundingClientRect().height;
-var margin = {top: 36, right: nodeMargin, bottom: 24, left: nodeMargin + 80};
+var margin = {top: 36, right: nodeMargin + 80, bottom: 24, left: nodeMargin};
 var width = outerWidth - margin.left - margin.right;
 var height = outerHeight - margin.top - margin.bottom;
 
@@ -3375,7 +2816,8 @@ var svg = html.select("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// html.select("svg .labels").attr("transform", "translate(" + (width + nodeMargin * 2 + 6) + ", 0)")
+html.select("svg .labels")
+    .attr("transform", "translate(" + (width + nodeMargin * 3) + ", 0)");
 
 var audio = svg.append("g")
     .attr("class", "audio")
@@ -3491,39 +2933,44 @@ cellB.append("text")
 // Links
 //
 
-var linkGroup = svg.selectAll(".link-group")
-    .data(linkData)
-  .enter().append("g")
-    .attr("class", "link-group")
-    .on("mouseover", function(d) {
-      linkGroup.style("opacity", 0);
-      d3.select(this).style("opacity", 1)
-    }).on("mouseout", function() {
-      linkGroup.style("opacity", 1);
-    });
-
-linkGroup.append("rect")
-    .style("opacity", 0)
-    .attr("width", xb.step())
-    .attr("height", height)
-    .attr("x", function(d) { return xb(d.bi) - xb.bandwidth() / 2; });
-
-linkGroup.append("rect")
-    .attr("class", "node-highlight")
-    .attr("x", function(d) { return xb(d.bi); })
-    .attr("y", nodeMargin)
-    .attr("width", nodeSizeB)
-    .attr("height", nodeSizeB)
-    .attr("rx", 4)
-    .attr("ry", 4);
-
+var linkGroup = svg.append("g").attr("class", ".link-group")
 
 var link = linkGroup.selectAll(".link")
-    .data(function(d) { return d.links; })
+    .data(linkData)
   .enter().append("path")
     .attr("class", "link")
     .attr("d", link)
     .style("opacity", function(d) { return d.v; });
+
+var hoverA = svg.selectAll(".hover-a")
+    .data(labelsA)
+  .enter().append("rect")
+    .attr("class", "hover-a")
+    .style("opacity", 0)
+    .attr("transform", function(d, i) { return "translate(" + (xa(i) - xa.step() / 4) + ", " + (networkMargin / 2 + nodeSizeB) + ")"; })
+    .attr("width", xa.step())
+    .attr("height", height)
+    .on("mouseover", function(d, i) {
+      link.style("display", function(ld) {
+        return ld.ai === i ? "" : "none";
+      });
+    })
+    .on("mouseout", function() { link.style("display", ""); });
+
+var hoverB = svg.selectAll(".hover-b")
+    .data(labelsB)
+  .enter().append("rect")
+    .attr("class", "hover-b")
+    .style("opacity", 0)
+    .attr("transform", function(d, i) { return "translate(" + (xb(i) - xb.step() / 4) + ", 0)"; })
+    .attr("width", xb.step())
+    .attr("height", networkMargin / 2 + nodeSizeB)
+    .on("mouseover", function(d, i) {
+      link.style("display", function(ld) {
+        return ld.bi === i ? "" : "none";
+      });
+    })
+    .on("mouseout", function() { link.style("display", ""); });
 
 //
 // Audio
@@ -3567,16 +3014,9 @@ audio.selectAll(".segment")
     .attr("height", audioHeight)
 
 })();
-</script></p>
-<!--
-<figure class=" external" >
-  <img src="assets/old-rnn-attention-vis1.png"></img>
-  <figcaption>Figure from [Chan, *et al.* 2015](https://arxiv.org/pdf/1508.01211.pdf)</figcaption>
-</figure>
--->
-<!--
-<img src="assets/old-rnn-attention-conv.png" style="width:60%; margin-left:20%; padding-top:20px; padding-bottom:17px;"></img>
--->
+</script>
+</p>
+<p>Other uses of this kind of attention include parsing text (<a href="https://arxiv.org/pdf/1412.7449.pdf">Vinyals, <em>et al.</em>, 2014</a>), where it allows the model to glance at words as it generates the parse tree, and for conversational modeling (<a href="http://arxiv.org/pdf/1506.05869.pdf">Vinyals &amp; Le, 2015</a>), where it lets the model focus on previous parts of the conversation as it generates its response.</p>
 <p>Attention can also be used on the interface between a convolutional neural network and an RNN. This allows the RNN to look at different position of an image every step. One popular use of this kind of attention is for image captioning. First, a conv net processes the image, extracting high-level features. Then an RNN runs, generating a description of the image. As it generates each word in the description, the RNN focuses on the conv nets interpretation of the relevant parts of the image. We can explicitly visualize this:</p>
 <figure class="w-body-plus external">
   <img src="assets/show-attend-tell.png">
@@ -3586,7 +3026,7 @@ audio.selectAll(".segment")
 <p>More broadly, attentional interfaces can be used whenever one wants to interface with a neural network that has a repeating structure in its output.</p>
 <p>Attentional interfaces have been found to be an extremely general and powerful technique, and are becoming increasingly widespread.</p>
 <hr>
-<h3 id="adaptive-computation-time">Adaptive Computation Time</h3>
+<h2 id="adaptive-computation-time">Adaptive Computation Time</h2>
 <p>Standard RNNs do the same amount of computation each time step. This seems unintuitive. Surely, one should think more when things are hard? It also limits RNNs to doing $O(n)$ operations for a list of length $n$.</p>
 <p>Adaptive Computation Time (<a href="https://arxiv.org/pdf/1603.08983v4.pdf">Graves, 2016</a>), is a way for RNNs to different amounts of computation each step. The big picture idea is simple: allow the RNN to do multiple steps of computation for each time step.</p>
 <figure class="w-page">
@@ -3613,7 +3053,7 @@ audio.selectAll(".segment")
   </defs>
   <title>rnn</title>
   <rect x="792" y="63" width="132" height="156" rx="10" ry="10" fill="#f0f0f5"/>
-  <path d="M898,87.5H885.5a10,10,0,0,0-10,10v28a10,10,0,0,1-10,10H844" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+  <path d="M898,87.5H885.5a10,10,0,0,0-10,10v28a10,10,0,0,1-10,10h-1.83" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   <g>
     <line x1="840" y1="231" x2="840" y2="168.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
     <path d="M840,163a27.2,27.2,0,0,0,4.28,7.69L840,169.14l-4.28,1.55A27.18,27.18,0,0,0,840,163Z" fill="#666"/>
@@ -3653,23 +3093,23 @@ audio.selectAll(".segment")
     <use width="24" height="24" transform="translate(886.75 75.39)" xlink:href="#op-sum"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(65 15.12)" font-size="12" font-family="Open Sans">For every time step the RNN can <tspan x="0" y="18">do multiple computation steps.</tspan></text>
+    <text transform="translate(65 15.88)" font-size="13" font-family="Open Sans">For every time step the RNN can <tspan x="0" y="20">do multiple computation steps.</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(335.67 15.12)" font-size="12" font-family="Open Sans">The output is a weighted combination <tspan x="0" y="18">of the computation step outputs</tspan></text>
+    <text transform="translate(335.67 15.88)" font-size="13" font-family="Open Sans">The output is a weighted combination <tspan x="0" y="20">of the computation step outputs</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(639.67 15.12)" font-size="12" font-family="Open Sans">The process is repeated <tspan x="0" y="18">for each time step</tspan></text>
+    <text transform="translate(639.67 15.88)" font-size="13" font-family="Open Sans">The process is repeated for <tspan x="0" y="20">each time step</tspan></text>
   </g>
   <g id="_Group_3" data-name="&lt;Group&gt;">
     <rect x="468" y="63" width="275.67" height="156" rx="10" ry="10" fill="#f0f0f5"/>
   </g>
-  <path d="M707.33,87h-74.5a10,10,0,0,0-10,10v28.5a10,10,0,0,1-10,10h-21.5" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+  <path d="M707.33,87h-74.5a10,10,0,0,0-10,10v28.5a10,10,0,0,1-10,10h-1.17" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   <g opacity="0.4">
-    <path d="M719.33,91h-14.5a10,10,0,0,0-10,10v24.5a10,10,0,0,1-10,10h-21.5" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path d="M719.33,91h-14.5a10,10,0,0,0-10,10v24.5a10,10,0,0,1-10,10h-1.5" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   </g>
   <g opacity="0.4">
-    <path d="M519.33,135.5l22-.34a10.22,10.22,0,0,0,10-10.16V93.5a10.07,10.07,0,0,1,10-10l146-.47" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path d="M539.33,135.5l2-.34a10.22,10.22,0,0,0,10-10.16V93.5a10.07,10.07,0,0,1,10-10l146-.47" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   </g>
   <g>
     <line x1="515.33" y1="231" x2="515.33" y2="168.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -3749,14 +3189,14 @@ audio.selectAll(".segment")
     <rect x="66" y="63" width="348" height="156" rx="10" ry="10" fill="#f0f0f5"/>
   </g>
   <g opacity="0.2">
-    <path d="M118,135.5h21.5a10,10,0,0,0,10-10v-34a10,10,0,0,1,10-10H389" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path d="M137.67,135.5h1.83a10,10,0,0,0,10-10v-34a10,10,0,0,1,10-10H389" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   </g>
   <g opacity="0.5">
-    <path d="M190,135.5h21.5a10,10,0,0,0,10-10v-30a10,10,0,0,1,10-10H389" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path d="M210,135.5h1.5a10,10,0,0,0,10-10v-30a10,10,0,0,1,10-10H389" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   </g>
-  <path d="M389,89.5H303.5a10,10,0,0,0-10,10v26a10,10,0,0,1-10,10H262" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+  <path d="M389,89.5H303.5a10,10,0,0,0-10,10v26a10,10,0,0,1-10,10h-1.17" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   <g opacity="0.2">
-    <path d="M389,93.5H375.5a10,10,0,0,0-10,10v22a10,10,0,0,1-10,10H334" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path d="M389,93.5H375.5a10,10,0,0,0-10,10v22a10,10,0,0,1-10,10h-1.17" fill="none" stroke="#8359b2" stroke-miterlimit="10" stroke-width="1.5"/>
   </g>
   <g>
     <line x1="114" y1="231" x2="114" y2="168.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -3851,7 +3291,7 @@ audio.selectAll(".segment")
     <use width="24" height="24" transform="translate(376.75 75.39)" xlink:href="#op-sum"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(66 250.28)" font-size="12" font-family="Open Sans">A special bit is set to denote <tspan x="0" y="18">the first computation step</tspan></text>
+    <text transform="translate(66 251.14)" font-size="13" font-family="Open Sans">A special bit is set to denote <tspan x="0" y="20">the first computation step</tspan></text>
   </g>
   <g opacity="0.4">
     <g>
@@ -4464,7 +3904,7 @@ audio.selectAll(".segment")
   <line x1="540" y1="39" x2="540" y2="264" stroke="#fff" stroke-miterlimit="10" stroke-width="1.5"/>
   <line x1="732" y1="39" x2="732" y2="264" stroke="#fff" stroke-miterlimit="10" stroke-width="1.5"/>
   <g opacity="0.6">
-    <text transform="translate(67.62 134)" font-size="12" font-family="Open Sans">halting neuron</text>
+    <text transform="translate(60.76 134)" font-size="13" font-family="Open Sans">halting neuron</text>
   </g>
   <g opacity="0.4">
     <g>
@@ -5031,14 +4471,14 @@ audio.selectAll(".segment")
 
 <p>When training Adaptive Computation Time models, one adds a “ponder cost” term to the cost function. This penalizes the model for the amount of computation it uses. The bigger you make this term, the more it will trade-off performance for lowering compute time.</p>
 <p>Adaptive Computation Time is a very new idea, but we believe that it, along with similar ideas, will be very important.</p>
-<p style="font-size: 75%; line-height: 145%;"><b>Code:</b><span style="color: rgba(0, 0, 0, 0.6);"> The only open source implementation of Adaptive Computation Time at the moment seems to be <a href="https://github.com/DeNeutoy/act-tensorflow">Mark Neumann’s</a> (TensorFlow). </span></p>
-
+<h3 id="code">Code</h3>
+<p>The only open source implementation of Adaptive Computation Time at the moment seems to be <a href="https://github.com/DeNeutoy/act-tensorflow">Mark Neumann’s</a> (TensorFlow).</p>
 <hr>
-<h3 id="neural-programmer">Neural Programmer</h3>
+<h2 id="neural-programmer">Neural Programmer</h2>
 <p>Neural nets are excellent at many tasks, but they also struggle to do some basic things like arithmetic, which are trivial in normal approaches to computing. It would be really nice to have a way to fuse neural nets with normal programming, and get the best of both worlds.</p>
 <p>The neural programmer (<a href="http://arxiv.org/abs/1511.04834">Neelakantan, <em>et al.</em>, 2015</a>) is one approach to this. It learns to create programs in order to solve a task. In fact, it learns to generate such programs <em>without needing examples of correct programs</em>. It discovers how to produce programs as a means to the end of accomplishing some task.</p>
-<p>The actual model in the paper answers questions about tables by generating SQL-like programs to query the table. However, there are a number of details here that make it a bit complicated, so let’s start by imagining a slightly simpler program, which is given an arithmetic expression and generates a program to evaluate it.</p>
-<p>The program is a sequence of operations. Each operation is defined to operate on the output of past operations. So an operation might be something like “add the output of the operation 2 steps ago and the output of the operation 1 step ago.” It’s more like a unix pipe than a program with variables being assigned and read from.</p>
+<p>The actual model in the paper answers questions about tables by generating SQL-like programs to query the table. However, there are a number of details here that make it a bit complicated, so let’s start by imagining a slightly simpler model, which is given an arithmetic expression and generates a program to evaluate it.</p>
+<p>The generated program is a sequence of operations. Each operation is defined to operate on the output of past operations. So an operation might be something like “add the output of the operation 2 steps ago and the output of the operation 1 step ago.” It’s more like a unix pipe than a program with variables being assigned to and read from.</p>
 <figure class="w-page">
 <svg id="text" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="66" viewBox="0 0 984 66">
   <defs>
@@ -5265,7 +4705,7 @@ audio.selectAll(".segment")
     <use id="op-3-9" data-name="op-3" width="50.5" height="27.5" transform="translate(576 18)" xlink:href="#op-3"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(678 153.12)" font-size="12" font-family="Open Sans">At each step the <tspan x="0" y="18">controller RNN outputs a </tspan><tspan x="0" y="36">probability distribution</tspan></text>
+    <text transform="translate(678 153.88)" font-size="13" font-family="Open Sans">At each step the <tspan x="0" y="20">controller RNN outputs a </tspan><tspan x="0" y="40">probability distribution</tspan></text>
   </g>
   <g>
     <line x1="204" y1="150" x2="204" y2="125.43" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -5298,7 +4738,7 @@ audio.selectAll(".segment")
 </svg>
 </figure>
 
-<p>The resulting distribution over operations can now be evaluated. Instead of running a single operation at each step, we use our usual trick of running all of them, and then average the outputs together, weighted by the probability we ran that operation.</p>
+<p>The resulting distribution over operations can now be evaluated. Instead of running a single operation at each step, we do the usual attention trick of running all of them and then average the outputs together, weighted by the probability we ran that operation.</p>
 <figure class="w-page">
 <svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="984" height="246" viewBox="0 0 984 246">
   <defs>
@@ -5543,10 +4983,10 @@ audio.selectAll(".segment")
     <use width="50.5" height="27.5" transform="translate(576 36)" xlink:href="#op-3"/>
   </g>
   <g opacity="0.6">
-    <text transform="translate(678 -88.88)" font-size="12" font-family="Open Sans">At each step the <tspan x="0" y="18">controller RNN outputs a </tspan><tspan x="0" y="36">probability distribution</tspan></text>
+    <text transform="translate(678 -88.12)" font-size="13" font-family="Open Sans">At each step the <tspan x="0" y="20">controller RNN outputs a </tspan><tspan x="0" y="40">probability distribution</tspan></text>
   </g>
   <g opacity="0.6">
-    <text transform="translate(678 177.12)" font-size="12" font-family="Open Sans">We run all of the <tspan x="0" y="18">operations and average </tspan><tspan x="0" y="36">the outputs together</tspan></text>
+    <text transform="translate(678 177.88)" font-size="13" font-family="Open Sans">We run all of the <tspan x="0" y="20">operations and average </tspan><tspan x="0" y="40">the outputs together</tspan></text>
   </g>
   <g>
     <line x1="228" y1="198.5" x2="300.57" y2="198.5" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
@@ -5589,59 +5029,74 @@ audio.selectAll(".segment")
 </ul>
 <p>The Neural Programmer isn’t the only approach to having neural networks generate programs. Another lovely approach is the Neural Programmer-Interpreter (<a href="https://arxiv.org/pdf/1511.06279.pdf">Reed &amp; de Freitas, 2015</a>) which can accomplish a number of very interesting tasks, but requires supervision in the form of correct programs.</p>
 <p>We think that this general space, of bridging the gap between more traditional programming and neural networks is extremely important. While the Neural Programmer is clearly not the final solution, we think there are a lot of important lessons to be learned from it.</p>
-<p style="font-size: 75%; line-height: 145%;"><b>Code:</b><span style="color: rgba(0, 0, 0, 0.6);"> There don’t seem to be any open source implementations of the Neural Programmer at present, but there is an implementation of the Neural Programmer-Interpreter by <a href="https://github.com/mokemokechicken/keras_npi">Ken Morishita</a> (Keras). </span></p>
-
+<h3 id="code">Code</h3>
+<p>There don’t seem to be any open source implementations of the Neural Programmer at present, but there is an implementation of the Neural Programmer-Interpreter by <a href="https://github.com/mokemokechicken/keras_npi">Ken Morishita</a> (Keras).</p>
 <hr>
-<h3 id="the-big-picture">The Big Picture</h3>
+<h2 id="the-big-picture">The Big Picture</h2>
 <p>A human with a piece of paper is, in some sense, much smarter than a human without. A human with mathematical notation can solve problems they otherwise couldn’t. Access to computers makes us capable of incredible feats that would otherwise be far beyond us.</p>
-<p>In general, it seems like a lot of interesting forms of intelligence are an interaction between the creative heuristic intuition of humans and some more crisp and careful media, like language or equations. Sometimes, the media is something that physically exists, and stores information for us, prevents us from making mistakes, or does computational heavy lifting. In other cases, the media is a model in our head that we manipulate. Either way, it seems deeply fundamental to intelligence.</p>
+<p>In general, it seems like a lot of interesting forms of intelligence are an interaction between the creative heuristic intuition of humans and some more crisp and careful media, like language or equations. Sometimes, the medium is something that physically exists, and stores information for us, prevents us from making mistakes, or does computational heavy lifting. In other cases, the medium is a model in our head that we manipulate. Either way, it seems deeply fundamental to intelligence.</p>
 <p>Recent results in machine learning have started to have this flavor, combining the intuition of neural networks with something else. One approach is what one might call “heuristic search.” For example, AlphaGo (<a href="http://willamette.edu/~levenick/cs448/goNature.pdf">Silver, <em>et al.</em>, 2016</a>) has a model of how Go works and explores how the game could play out guided by neural network intuition. Similarly, DeepMath (<a href="https://arxiv.org/pdf/1606.04442.pdf">Alemi, <em>et al.</em>, 2016</a>) uses neural networks as intuition for manipulating mathematical expressions. The “augmented RNNs” we’ve talked about in this article are another approach, where we connect RNNs to engineered media, in order to extend their general capabilities.</p>
-<p>Interacting with a media naturally involves making a sequence of taking an action, observing, and taking more actions. This creates a major challenge: how do we learn which actions to take? That sounds like a reinforcement learning problem and we could certainly take that approach. But the reinforcement learning literature is really attacking the hardest version of this problem, and its solutions are hard to use. The wonderful thing about attention is that it gives us an easier way out of this problem by partially taking all actions to varying extents. This works because we can design media – like the NTM memory – to allow fractional actions and to be differentiable. Reinforcement learning has us take a single path, and try to learn from that. Attention takes every direction at a fork, and then merges the paths back together.</p>
+<p>Interacting with media naturally involves making a sequence of taking an action, observing, and taking more actions. This creates a major challenge: how do we learn which actions to take? That sounds like a reinforcement learning problem and we could certainly take that approach. But the reinforcement learning literature is really attacking the hardest version of this problem, and its solutions are hard to use. The wonderful thing about attention is that it gives us an easier way out of this problem by partially taking all actions to varying extents. This works because we can design media – like the NTM memory – to allow fractional actions and to be differentiable. Reinforcement learning has us take a single path, and try to learn from that. Attention takes every direction at a fork, and then merges the paths back together.</p>
 <p>A major weaknesses of attention is that we have to take every “action” every step. This causes the computational cost to grow linearly as you do things like increase the amount of memory in a Neural Turing Machine. One thing you could imagine doing is having your attention be sparse, so that you only have to touch some memories. However, it’s still challenging because you may want to do things like have your attention depend on the content of the memory, and doing that naively forces you to look at each memory. We’ve seen some initial attempts to attack this problem, such as <a href="https://arxiv.org/pdf/1602.03218.pdf">Andrychowicz &amp; Kurach, 2016</a>, but it seems like there’s a lot more to be done. If we could really make such sub-linear time attention work, that would be very powerful!</p>
 <p>Augmented recurrent neural networks, and the underlying technique of attention, are incredibly exciting. We look forward to seeing what happens next!</p>
-<hr>
-<h3 id="acknowledgments">Acknowledgments</h3>
-<p>Thank you to Maithra Raghu, Dario Amodei, Natasha Jaques, Cassandra Xia, and Ian Goodfellow for their feedback and encouragement.</p>
-<h3 id="references">References</h3>
-<!-- We could write up a bibliography section citing these: -->
-<ul style="font-size: 65%; line-height: 155%;">
-<li>Alemi, A. A., Chollet, F., Irving, G., Szegedy, C., &amp; Urban, J. (2016). DeepMath-Deep Sequence Models for Premise Selection. arXiv preprint arXiv:1606.04442.</li>
-<li>Andrychowicz, M., &amp; Kurach, K. (2016). Learning Efficient Algorithms with Hierarchical Attentive Memory. arXiv preprint arXiv:1602.03218.</li>
-<li>Bahdanau, D., Cho, K., &amp; Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.</li>
-<li>Chan, W., Jaitly, N., Le, Q. V., &amp; Vinyals, O. (2015). Listen, attend and spell. arXiv preprint arXiv:1508.01211.</li>
-<li>Graves, A., Wayne, G., &amp; Danihelka, I. (2014). Neural turing machines. arXiv preprint arXiv:1410.5401.</li>
-<li>Graves, A. (2016). Adaptive Computation Time for Recurrent Neural Networks. arXiv preprint arXiv:1603.08983.</li>
-<li>Grefenstette, E., Hermann, K. M., Suleyman, M., &amp; Blunsom, P. (2015). Learning to transduce with unbounded memory. In Advances in Neural Information Processing Systems (pp. 1828-1836).</li>
-<li>Joulin, A., &amp; Mikolov, T. (2015). Inferring algorithmic patterns with stack-augmented recurrent nets. In Advances in Neural Information Processing Systems (pp. 190-198).</li>
-<li>Kaiser, Ł., &amp; Sutskever, I. (2015). Neural gpus learn algorithms. arXiv preprint arXiv:1511.08228.</li>
-<li>Kumar, A., Irsoy, O., Su, J., Bradbury, J., English, R., Pierce, B., Ondruska, P., Gulrajani, I. &amp; Socher, R., (2015). Ask me anything: Dynamic memory networks for natural language processing. arXiv preprint arXiv:1506.07285.</li>
-<li>Kurach, K., Andrychowicz, M., &amp; Sutskever, I. (2015). Neural random-access machines. arXiv preprint arXiv:1511.06392.</li>
-<li>Neelakantan, A., Le, Q. V., &amp; Sutskever, I. (2015). Neural programmer: Inducing latent programs with gradient descent. arXiv preprint arXiv:1511.04834.</li>
-<li>Olah, C. (2015). Understanding LSTM Networks.</li>
-<li>Reed, S., &amp; de Freitas, N. (2015). Neural programmer-interpreters. arXiv preprint arXiv:1511.06279.</li>
-<li>Silver, D., Huang, A., Maddison, C.J., Guez, A., Sifre, L., Van Den Driessche, G., Schrittwieser, J., Antonoglou, I., Panneershelvam, V., Lanctot, M. &amp; Dieleman, S. (2016). Mastering the game of Go with deep neural networks and tree search. Nature, 529(7587), 484-489.</li>
-<li>Vinyals, O., Kaiser, Ł., Koo, T., Petrov, S., Sutskever, I., &amp; Hinton, G. (2015). Grammar as a foreign language. In Advances in Neural Information Processing Systems (pp. 2773-2781).</li>
-<li>Vinyals, O., &amp; Le, Q. (2015). A neural conversational model. arXiv preprint arXiv:1506.05869.</li>
-<li>Vinyals, O., Fortunato, M., &amp; Jaitly, N. (2015). Pointer networks. In Advances in Neural Information Processing Systems (pp. 2692-2700).</li>
-<li>Weston, J., Chopra, S., &amp; Bordes, A. (2014). Memory networks. arXiv preprint arXiv:1410.3916.</li>
-<li>Xu, K., Ba, J., Kiros, R., Cho, K., Courville, A., Salakhutdinov, R., Zemel, R.S. &amp; Bengio, Y., 2015. (2015). Show, attend and tell: Neural image caption generation with visual attention. arXiv preprint arXiv:1502.03044, 2(3), 5.</li>
-<li>Zaremba, W., &amp; Sutskever, I. (2015). Reinforcement learning neural Turing machines. arXiv preprint arXiv:1505.00521, 362.</li>
-</ul>
-  </div>
+<p><script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script></p>
+<!-- Appendix -->
+<section class="appendix w-body">
+  <h3>Acknowledgments</h3>
+  <p>Thank you to Maithra Raghu, Dario Amodei, Cassandra Xia, Luke Vilnis, Anna Goldie, Jesse Engel, Dan Mané, Natasha Jaques, Emma Pierson and Ian Goodfellow for their feedback and encouragement.
+  <h3 id="citation">Errors, Reuse, and Citation</h3>
+  <p>If you see mistakes or want to suggest changes, please submit a pull request on <a href="https://github.com/distillpub/post--augmented-rnns">github</a>.
+  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a>, unless noted otherwise, with the source available on available on <a href="https://github.com/distillpub/post--augmented-rnns">github</a>. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.
+  <p>For attribution in academic contexts, please cite this work as
+  <pre class="citation">Chris Olah &amp; Shan Carter, “Attention and Augmented Recurrent Neural Networks”, Distill, 2016.</pre>
+  <p>BibTeX citation
+<pre class="citation">@misc{olah2016attention
+  author = {Olah, Chris and Carter, Shan},
+  title = {Attention and Augmented Recurrent Neural Networks},
+  year = {2016},
+  howpublished = {http:&#x2F;&#x2F;distill.pub&#x2F;2016&#x2F;augmented-rnns&#x2F;}
+}</pre>
 
-<style>
-  .footer {
-    font: 13px/1.4em "Open Sans", helvetica, sans;
-    color: rgba(0, 0, 0, 0.6);
-    padding: 40px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: #fafafa;
-  }
-</style>
-<div class="footer">
-  <div class="w-body">
-    <p>Blog</p>
-    <p>About the Blog</p>
-    <p>Copyright 2016</p>
+  <h3>References</h3>
+  <ul class="references">
+    <li>Alemi, A. A., Chollet, F., Irving, G., Szegedy, C., &amp; Urban, J. (2016). DeepMath-Deep Sequence Models for Premise Selection. arXiv preprint arXiv:1606.04442.</li>
+    <li>Andrychowicz, M., &amp; Kurach, K. (2016). Learning Efficient Algorithms with Hierarchical Attentive Memory. arXiv preprint arXiv:1602.03218.</li>
+    <li>Bahdanau, D., Cho, K., &amp; Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.</li>
+    <li>Chan, W., Jaitly, N., Le, Q. V., &amp; Vinyals, O. (2015). Listen, attend and spell. arXiv preprint arXiv:1508.01211.</li>
+    <li>Graves, A., Wayne, G., &amp; Danihelka, I. (2014). Neural turing machines. arXiv preprint arXiv:1410.5401.</li>
+    <li>Graves, A. (2016). Adaptive Computation Time for Recurrent Neural Networks. arXiv preprint arXiv:1603.08983.</li>
+    <li>Grefenstette, E., Hermann, K. M., Suleyman, M., &amp; Blunsom, P. (2015). Learning to transduce with unbounded memory. In Advances in Neural Information Processing Systems (pp. 1828-1836).</li>
+    <li>Joulin, A., &amp; Mikolov, T. (2015). Inferring algorithmic patterns with stack-augmented recurrent nets. In Advances in Neural Information Processing Systems (pp. 190-198).</li>
+    <li>Kaiser, Ł., &amp; Sutskever, I. (2015). Neural gpus learn algorithms. arXiv preprint arXiv:1511.08228.</li>
+    <li>Kumar, A., Irsoy, O., Su, J., Bradbury, J., English, R., Pierce, B., Ondruska, P., Gulrajani, I. &amp; Socher, R., (2015). Ask me anything: Dynamic memory networks for natural language processing. arXiv preprint arXiv:1506.07285.</li>
+    <li>Kurach, K., Andrychowicz, M., &amp; Sutskever, I. (2015). Neural random-access machines. arXiv preprint arXiv:1511.06392.</li>
+    <li>Neelakantan, A., Le, Q. V., &amp; Sutskever, I. (2015). Neural programmer: Inducing latent programs with gradient descent. arXiv preprint arXiv:1511.04834.</li>
+    <li>Olah, C. (2015). Understanding LSTM Networks.</li>
+    <li>Reed, S., &amp; de Freitas, N. (2015). Neural programmer-interpreters. arXiv preprint arXiv:1511.06279.</li>
+    <li>Silver, D., Huang, A., Maddison, C.J., Guez, A., Sifre, L., Van Den Driessche, G., Schrittwieser, J., Antonoglou, I., Panneershelvam, V., Lanctot, M. &amp; Dieleman, S. (2016). Mastering the game of Go with deep neural networks and tree search. Nature, 529(7587), 484-489.</li>
+    <li>Vinyals, O., Kaiser, Ł., Koo, T., Petrov, S., Sutskever, I., &amp; Hinton, G. (2015). Grammar as a foreign language. In Advances in Neural Information Processing Systems (pp. 2773-2781).</li>
+    <li>Vinyals, O., &amp; Le, Q. (2015). A neural conversational model. arXiv preprint arXiv:1506.05869.</li>
+    <li>Vinyals, O., Fortunato, M., &amp; Jaitly, N. (2015). Pointer networks. In Advances in Neural Information Processing Systems (pp. 2692-2700).</li>
+    <li>Weston, J., Chopra, S., &amp; Bordes, A. (2014). Memory networks. arXiv preprint arXiv:1410.3916.</li>
+    <li>Xu, K., Ba, J., Kiros, R., Cho, K., Courville, A., Salakhutdinov, R., Zemel, R.S. &amp; Bengio, Y., 2015. (2015). Show, attend and tell: Neural image caption generation with visual attention. arXiv preprint arXiv:1502.03044, 2(3), 5.</li>
+    <li>Zaremba, W., &amp; Sutskever, I. (2015). Reinforcement learning neural Turing machines. arXiv preprint arXiv:1505.00521, 362.</li>
+  </ul>
+</section>
   </div>
-</div></body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83741880-1', 'auto');
+  ga('send', 'pageview');
+
+</script></body>

@@ -15,7 +15,6 @@ figure {
 .page {
   overflow: hidden;
   background-color: #fcfcfc;
-  padding-bottom: 120px;
 }
 
 /**
@@ -128,6 +127,14 @@ figure {
 .p-right-margin,
 .post .p-right-margin {
   float: right;
+  margin-top: 0;
+  width: calc((960px - 620px) / 2);
+  margin-right: calc((100vw - 960px) / 2);
+}
+/*
+.p-right-margin,
+.post .p-right-margin {
+  float: right;
   width: calc((768px - 620px) / 2);
   margin-right: calc((100vw - 768px) / 2);
   margin-top: 0;
@@ -145,7 +152,7 @@ figure {
     width: calc((1200px - 620px) / 2);
     margin-right: calc((100vw - 1200px) / 2);
   }
-}
+}*/
 
 .p-left-margin,
 .post .p-left-margin {
@@ -212,12 +219,7 @@ figure {
 
 .post {
   color: rgba(0, 0, 0, 0.8);
-  font: 17px/30px "Open Sans", sans-serif;
-}
-
-
-.post section:first-of-type {
-  margin-top: 80px;
+  font: 16px/28px "Open Sans", sans-serif;
 }
 
 .post > h1:first-of-type {
@@ -225,26 +227,26 @@ figure {
 }
 
 .post h1 {
-  font: 700 48px/54px "Open Sans", helvetica, sans-serif;
+  font: 500 50px/54px "PT Serif", helvetica, sans-serif;
   margin-bottom: 15px;
 }
 
 .post h2 {
   font-weight: 500;
-  font-size: 22px;
+  font-size: 30px;
   line-height: 1.45em;
-  font-family: "Open Sans", sans-serif;
-  margin-bottom: 20px;
+  font-family: "PT Serif", "Open Sans", sans-serif;
+  margin-bottom: 24px;
   -webkit-font-smoothing: antialiased;
 }
 
 .post h3 {
-  font-weight: 600;
-  font-size: 25px;
+  font-weight: 700;
+  font-size: 18px;
   line-height: 1.4em;
   font-family: "Open Sans", sans-serif;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .post h4 {
@@ -259,14 +261,28 @@ figure {
   color: inherit;
 }
 
+.post p .link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .post p {
   margin-bottom: 24px;
   /*text-align: justify;*/
-  /*-webkit-font-smoothing: antialiased;*/
+  -webkit-hyphens: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.post p code {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 2px;
+  padding: 4px 7px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .post ul {
-  padding-left: 0;
+  padding-left: 20px;
 }
 
 .post li {
@@ -308,10 +324,14 @@ pre code {
 /* Byline */
 .post .byline {
   font: 500 12px/18px "Open Sans", helvetica, sans-serif;
-  margin-bottom: 60px;
+  margin-bottom: 48px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 12px;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.post .byline a {
+  text-decoration: none;
 }
 
 .post .byline .authors {
@@ -325,12 +345,17 @@ pre code {
   /*border-left: 1px solid #ddd;*/
 }
 
+.post .byline .affiliation {
+  display: block;
+}
+
 .post .byline .author:last-child {
   margin-right: 0;
 }
 
 .post .byline .name {
   text-transform: uppercase;
+  display: block;
 }
 
 .post .byline .date {
@@ -395,4 +420,40 @@ pre code {
 .post figure figcaption b {
   color: rgba(0, 0, 0, 1.0);
   font-weight: 600;
+}
+
+/* Appendix */
+.post .appendix {
+  font-family: "Open Sans";
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 96px;
+  margin-bottom: 0;
+  padding-top: 36px;
+  padding-bottom: 60px;
+  padding-left: calc(50% - (648px / 2));
+  padding-right: calc(50% - (648px / 2));
+  border-top: 1px solid rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.025);
+
+}
+
+.post .appendix h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.post .appendix .citation {
+  font-size: 12px;
+  line-height: 18px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+}
+
+.post .appendix .references {
+  font-size: 12px;
+  line-height: 20px;
 }
